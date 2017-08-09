@@ -1,0 +1,47 @@
+{"cards":[
+    {
+        "front": "Welcome to Swiftcard. The first screen to show on startup is a flash screen followed by a list of any sets. Tap to see the back of this card.After return to the cards swipe right to go forward.",
+        "back": "If any sets exist their Name, description and count of flashcards that exist in the set will be displayed."
+    },
+    {
+        "front": "A flashcard set is created by pressing the \"+\" in the main screen navigation bar.",
+        "back": "\"Set Name:\" and \"Set Description.\" are required fields. Set name must be a unique.  The \"Import URL\" is set to the introduction cards on GitHub.com."
+    },
+    {
+        "front": "In the new flashcard set screen the save button will persist the new set.",
+        "back": "Pressing the return button on the top left will not save the new flashcard set."
+    },
+    {
+        "front": "In the new flashcard set screen \"import URL:\" is the location on the internet of the file to be imported.",
+        "back": "Currently only \"https\" and file type of \".json\" is supported.  The json file to be imported must be formated correctly. A example json file correctly formatted is      { \"cards\": [\n    {\n        \"front\": \"Gives a placeholder name to a type that is used as part of a protocol\",\n        \"back\": \"associatedtype(typealias is sometimes used to declare the concrete type, but Swifts type inference doesn't require it)\"\n    },\n    {\n        \"front\": \"General-purose, flexible construct that becomes the building blocks of a program.\",\n        \"back\": \"Class\"\n    }\n]\n}"
+    },
+    {
+        "front": "A flashcard set can be edited and deleted.",
+        "back": "Swipe left on the  right side of the set record to bring up the edit and delete buttons."
+    },
+    {
+        "front": "Selecting the set record will bring up the card screen.This screen shows all of the flashcards in that set.",
+        "back": "The card screen has the functionality to add, edit, and delete flashcards.  The tab menu has 3 buttons.  Start, ReSet and Import"
+    },
+    {
+        "front": "In the card screen select '+' to bring up the card add/edit screen.",
+        "back": "Front and back are required text fields and cannot be empty. The show field is defaulted to true and it determines if the card will be shown during a flashcard session."
+    },
+    {
+        "front": "Swiping left on a flashcard record on the right side will bring up the Edit/Delete buttons.",
+        "back": "Selecting Edit will bring up the selected card to be edited.  Save must be selected to persist the card edits, selecting the return arrow will not persist the changes made. Selecting Delete will delete the record."
+    },
+    {
+        "front": "There are 4 buttons on the bottom of the tab bar.",
+        "back": "Start - starts the flash cards session, ReSet - sets the show field back to True, Import- imports cards into the set if the Import field is in the Set, Exportcsv - exports the cards in .cvs format."
+    },
+    {
+        "front": "Select \"Start\" to start the flashcard session.  Tap the screen to see the back of the card.  After reviewing the back of the card swipe left to go to the next card.",
+        "back": "This is the back of the flash card which is a different color than the front and should be the answer of the front flashcards.  Tap the screen to return to the front card."
+    },
+    {
+        "front": "If the card is know swipe up to mark the card as know.  Text displaying \"Know it!\" will be displayed on the card. Swiping down will remove \"Know it.\".",
+        "back": "Cards marked \"Know it.\" will not be displayed the next time Swiftcards is played, but will remain in the current flashcard session."
+    }
+]
+}
