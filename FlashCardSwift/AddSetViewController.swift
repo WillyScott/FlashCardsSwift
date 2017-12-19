@@ -52,7 +52,7 @@ class AddSetViewController: UIViewController, UITextFieldDelegate {
     }
 
     // MARK: Adds new Set
-    func addSet ( sender: UIBarButtonItem?) {
+    @objc func addSet ( sender: UIBarButtonItem?) {
         
         var currentSet:Set?
         let fetchRequestSet:NSFetchRequest<Set> = Set.fetchRequest()
