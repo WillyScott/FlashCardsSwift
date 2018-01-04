@@ -74,7 +74,7 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
         exportButtonItem.isEnabled = true
         performSegue(withIdentifier: segueExport, sender: self)
     }
-    
+    //dlkdkkd
     @IBOutlet weak var exportButtonItem: UIBarButtonItem!
     
     @IBAction func resetCardsShowtoTrue(_ sender: UIBarButtonItem) {
