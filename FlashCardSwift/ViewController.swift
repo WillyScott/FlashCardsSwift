@@ -82,6 +82,7 @@ class ViewController: UIViewController {
     private func reloadData() {
         let fetchRequest: NSFetchRequest<Set> = Set.fetchRequest()
         // FetchRequest require sort descriptors
+        // TODO: sort by section
         let sort = NSSortDescriptor(key: #keyPath(Set.date), ascending: true)
         fetchRequest.sortDescriptors = [sort]
         fetchResultsSetsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: coreDataStack.managedContext, sectionNameKeyPath: nil, cacheName: nil)
@@ -117,6 +118,7 @@ extension ViewController: UITableViewDataSource {
         cell.cardsLabel.text = String(set.cards?.count ?? 0)
         cell.setDescription.text = set.descriptionSet
         cell.setLabel.text = set.name
+        cell.setSection.text = set.section
         return cell
     }
     
@@ -134,6 +136,7 @@ extension ViewController: UITableViewDataSource {
         cell.cardsLabel.text = String(setCurrent.cards?.count ?? 0)
         cell.setDescription.text = setCurrent.descriptionSet
         cell.setLabel.text = setCurrent.name
+        cell.setSection.text = setCurrent.section
     }
 }
 

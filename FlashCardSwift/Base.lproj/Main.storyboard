@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7VU-SU-7eC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7VU-SU-7eC">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -28,56 +29,108 @@
                                 <gestureRecognizers/>
                             </activityIndicatorView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SYX-73-Fl1">
-                                <rect key="frame" x="76" y="364" width="223" height="21"/>
+                                <rect key="frame" x="166.5" y="323" width="42" height="21"/>
                                 <gestureRecognizers/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0gy-4t-6MJ">
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="77" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0gy-4t-6MJ">
                                 <rect key="frame" x="0.0" y="64" width="375" height="559"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SetCell" id="Wlh-6J-zXG" customClass="SetTableViewCell" customModule="SwiftCard" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SetCell" rowHeight="77" id="Wlh-6J-zXG" customClass="SetTableViewCell" customModule="SwiftCard" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="77"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Wlh-6J-zXG" id="Dm1-IT-TR5">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="77"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="set" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hcn-nL-t6Q">
-                                                    <rect key="frame" x="8" y="0.0" width="24" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="setDescription" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Do1-e4-ygR">
-                                                    <rect key="frame" x="8" y="12" width="112" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cards" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qba-oV-nHk">
-                                                    <rect key="frame" x="312" y="11" width="43" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="qIF-V8-KXO">
+                                                    <rect key="frame" x="10" y="5" width="355" height="66.5"/>
+                                                    <subviews>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Od7-Of-mbF">
+                                                            <rect key="frame" x="0.0" y="0.0" width="355" height="22"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" text="Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cqc-Ag-Wyb">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="20.5"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="set" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hcn-nL-t6Q">
+                                                                    <rect key="frame" x="58" y="0.0" width="297" height="20.5"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Sno-4D-dNY">
+                                                            <rect key="frame" x="0.0" y="22" width="355" height="22.5"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" text="Description:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="100" translatesAutoresizingMaskIntoConstraints="NO" id="f6e-7a-znm">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="92.5" height="20.5"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="setDescription" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Do1-e4-ygR">
+                                                                    <rect key="frame" x="92.5" y="0.0" width="262.5" height="20.5"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Bwd-v9-68A">
+                                                            <rect key="frame" x="0.0" y="44.5" width="355" height="22"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" text="Section:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BTc-x4-nrE">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="62.5" height="22"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="setSection" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0wW-MA-Zdw">
+                                                                    <rect key="frame" x="70.5" y="0.0" width="233.5" height="22"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" text="cards" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qba-oV-nHk">
+                                                                    <rect key="frame" x="312" y="0.0" width="43" height="22"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="Od7-Of-mbF" firstAttribute="leading" secondItem="qIF-V8-KXO" secondAttribute="leading" id="BPG-xy-oru"/>
+                                                        <constraint firstItem="BTc-x4-nrE" firstAttribute="leading" secondItem="f6e-7a-znm" secondAttribute="leading" id="KFj-g4-n2v"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Od7-Of-mbF" secondAttribute="trailing" id="aHf-Kt-bU0"/>
+                                                        <constraint firstItem="Bwd-v9-68A" firstAttribute="leading" secondItem="qIF-V8-KXO" secondAttribute="leading" id="mQJ-AM-XXO"/>
+                                                        <constraint firstItem="f6e-7a-znm" firstAttribute="leading" secondItem="cqc-Ag-Wyb" secondAttribute="leading" id="tHZ-fB-aiG"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Sno-4D-dNY" secondAttribute="trailing" id="ury-vw-yAD"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Bwd-v9-68A" secondAttribute="trailing" id="wvs-oI-6Xs"/>
+                                                        <constraint firstItem="Sno-4D-dNY" firstAttribute="leading" secondItem="qIF-V8-KXO" secondAttribute="leading" id="xre-Co-j40"/>
+                                                    </constraints>
+                                                </stackView>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.43505859375" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
-                                                <constraint firstItem="Do1-e4-ygR" firstAttribute="bottom" secondItem="Dm1-IT-TR5" secondAttribute="bottomMargin" id="FU8-ot-IcF"/>
-                                                <constraint firstItem="Qba-oV-nHk" firstAttribute="top" secondItem="Dm1-IT-TR5" secondAttribute="topMargin" id="OZA-kf-oNv"/>
-                                                <constraint firstItem="hcn-nL-t6Q" firstAttribute="leading" secondItem="Dm1-IT-TR5" secondAttribute="leading" constant="8" id="UKp-9e-rF7"/>
-                                                <constraint firstItem="Do1-e4-ygR" firstAttribute="leading" secondItem="hcn-nL-t6Q" secondAttribute="leading" id="bTA-fs-OHE"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="Qba-oV-nHk" secondAttribute="trailing" constant="5" id="naq-9Z-Pb8"/>
-                                                <constraint firstItem="hcn-nL-t6Q" firstAttribute="top" secondItem="Dm1-IT-TR5" secondAttribute="top" id="y7e-yw-v8w"/>
+                                                <constraint firstItem="qIF-V8-KXO" firstAttribute="leading" secondItem="Dm1-IT-TR5" secondAttribute="leading" constant="10" id="549-N7-VOH"/>
+                                                <constraint firstItem="qIF-V8-KXO" firstAttribute="top" secondItem="Dm1-IT-TR5" secondAttribute="top" constant="5" id="EfZ-er-ZHp"/>
+                                                <constraint firstAttribute="trailing" secondItem="qIF-V8-KXO" secondAttribute="trailing" constant="10" id="Tdu-9z-6sL"/>
+                                                <constraint firstAttribute="bottom" secondItem="qIF-V8-KXO" secondAttribute="bottom" constant="5" id="iHx-dP-99m"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="cardsLabel" destination="Qba-oV-nHk" id="8UW-yZ-C2V"/>
                                             <outlet property="setDescription" destination="Do1-e4-ygR" id="lih-3r-gNX"/>
                                             <outlet property="setLabel" destination="hcn-nL-t6Q" id="Rwd-V3-5yJ"/>
+                                            <outlet property="setSection" destination="0wW-MA-Zdw" id="bJ8-jp-G66"/>
                                             <segue destination="ep9-wK-w8I" kind="show" identifier="SequeCardsViewController" id="YfL-1Z-dEd"/>
                                         </connections>
                                     </tableViewCell>
@@ -90,13 +143,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="0gy-4t-6MJ" firstAttribute="leading" secondItem="jTa-nx-1QT" secondAttribute="leading" id="15l-Dr-MdP"/>
+                            <constraint firstAttribute="trailing" secondItem="0gy-4t-6MJ" secondAttribute="trailing" id="4g9-f3-5vl"/>
                             <constraint firstItem="0gy-4t-6MJ" firstAttribute="top" secondItem="8Ku-Nh-28S" secondAttribute="bottom" id="EHk-fK-hk4"/>
                             <constraint firstItem="YlA-uK-9Az" firstAttribute="top" secondItem="0gy-4t-6MJ" secondAttribute="bottom" id="EoU-zg-hE5"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="0gy-4t-6MJ" secondAttribute="trailing" constant="-16" id="cx5-mL-pHX"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="SYX-73-Fl1" secondAttribute="trailing" constant="60" id="mZS-wh-1u8"/>
-                            <constraint firstItem="0gy-4t-6MJ" firstAttribute="leading" secondItem="jTa-nx-1QT" secondAttribute="leadingMargin" constant="-16" id="pbi-5N-BUm"/>
-                            <constraint firstItem="SYX-73-Fl1" firstAttribute="top" secondItem="8Ku-Nh-28S" secondAttribute="bottom" constant="300" id="qp7-hl-fqD"/>
-                            <constraint firstItem="SYX-73-Fl1" firstAttribute="leading" secondItem="jTa-nx-1QT" secondAttribute="leadingMargin" constant="60" id="vov-ju-fem"/>
+                            <constraint firstItem="SYX-73-Fl1" firstAttribute="centerX" secondItem="jTa-nx-1QT" secondAttribute="centerX" id="VNp-Vs-RK2"/>
+                            <constraint firstItem="SYX-73-Fl1" firstAttribute="centerY" secondItem="jTa-nx-1QT" secondAttribute="centerY" id="vIg-tC-G9X"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="cIQ-yf-IgD">
@@ -123,13 +175,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Or-9w-x6Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1978" y="-609"/>
+            <point key="canvasLocation" x="1895" y="-790"/>
         </scene>
         <!--Title-->
         <scene sceneID="squ-hx-JZW">
             <objects>
                 <tableViewController id="ep9-wK-w8I" customClass="CardsViewController" customModule="SwiftCard" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="3Qb-Gu-eyc">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="3Qb-Gu-eyc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -138,7 +190,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0VS-DQ-czC" id="PJO-j7-9Dr">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Front" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v5f-8O-epW">
@@ -163,6 +215,8 @@
                                     <constraints>
                                         <constraint firstItem="2fF-db-iEf" firstAttribute="trailing" secondItem="v5f-8O-epW" secondAttribute="trailing" constant="51" id="Ejo-Bf-tcp"/>
                                         <constraint firstItem="Oyy-CU-dJO" firstAttribute="width" secondItem="v5f-8O-epW" secondAttribute="width" id="G01-ux-Huz"/>
+                                        <constraint firstItem="2fF-db-iEf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="PJO-j7-9Dr" secondAttribute="leading" constant="20" symbolic="YES" id="Tnt-7v-xNV"/>
+                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Oyy-CU-dJO" secondAttribute="trailing" constant="20" symbolic="YES" id="wkj-94-GFC"/>
                                         <constraint firstItem="Oyy-CU-dJO" firstAttribute="top" secondItem="v5f-8O-epW" secondAttribute="top" constant="22" id="zB1-6Y-DU4"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -224,7 +278,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D6v-J3-4CK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2605" y="-1003"/>
+            <point key="canvasLocation" x="2975" y="-1065"/>
         </scene>
         <!--Title-->
         <scene sceneID="2Xa-vi-gnK">
@@ -580,11 +634,8 @@ SwiftCards comes with 2 default sets of flashcards, “Introduction to the appli
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g3z-aL-1ev">
-                                <rect key="frame" x="16" y="133.5" width="343" height="400"/>
+                                <rect key="frame" x="16" y="28" width="343" height="619"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="400" id="Ux8-Pt-Cig"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -594,10 +645,10 @@ SwiftCards comes with 2 default sets of flashcards, “Introduction to the appli
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="g3z-aL-1ev" firstAttribute="trailing" secondItem="W1Z-vR-TST" secondAttribute="trailingMargin" id="Gwc-Pg-zzb"/>
-                            <constraint firstItem="g3z-aL-1ev" firstAttribute="centerX" secondItem="W1Z-vR-TST" secondAttribute="centerX" id="NJQ-Lf-p53"/>
-                            <constraint firstItem="g3z-aL-1ev" firstAttribute="centerY" secondItem="W1Z-vR-TST" secondAttribute="centerY" id="p8N-6E-C0y"/>
-                            <constraint firstItem="g3z-aL-1ev" firstAttribute="leading" secondItem="W1Z-vR-TST" secondAttribute="leadingMargin" id="u7B-nB-PpW"/>
+                            <constraint firstItem="brL-a4-BvA" firstAttribute="top" secondItem="g3z-aL-1ev" secondAttribute="bottom" constant="20" id="GIx-kd-Fez"/>
+                            <constraint firstItem="g3z-aL-1ev" firstAttribute="leading" secondItem="W1Z-vR-TST" secondAttribute="leadingMargin" id="XsJ-dJ-jOP"/>
+                            <constraint firstItem="g3z-aL-1ev" firstAttribute="top" secondItem="qc2-7M-uFf" secondAttribute="bottom" constant="8" id="esA-io-h83"/>
+                            <constraint firstItem="g3z-aL-1ev" firstAttribute="trailing" secondItem="W1Z-vR-TST" secondAttribute="trailingMargin" id="hQA-8J-fjN"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="h5v-tc-BCv" appends="YES" id="ThM-dA-J8F"/>
@@ -614,7 +665,7 @@ SwiftCards comes with 2 default sets of flashcards, “Introduction to the appli
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="5921.875" y="-65.0390625"/>
+            <point key="canvasLocation" x="5920.8000000000002" y="-65.217391304347828"/>
         </scene>
         <!--Add Set View Controller-->
         <scene sceneID="jZb-i4-tyG">
@@ -629,7 +680,7 @@ SwiftCards comes with 2 default sets of flashcards, “Introduction to the appli
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="oLv-Fl-Y4N">
-                                <rect key="frame" x="16" y="72" width="343" height="195"/>
+                                <rect key="frame" x="16" y="72" width="343" height="235"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="26T-fj-8Gw">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
@@ -668,8 +719,25 @@ SwiftCards comes with 2 default sets of flashcards, “Introduction to the appli
                                             <constraint firstAttribute="height" constant="75" id="xWi-tI-iDt"/>
                                         </constraints>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="blR-k4-rob">
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="JdC-Tp-OUN">
                                         <rect key="frame" x="0.0" y="125" width="343" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set Section:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YNw-i8-oKQ">
+                                                <rect key="frame" x="0.0" y="0.0" width="92.5" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BDZ-sA-P64">
+                                                <rect key="frame" x="100.5" y="0.0" width="242.5" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="blR-k4-rob">
+                                        <rect key="frame" x="0.0" y="165" width="343" height="30"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Import URL:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qon-vs-b2i">
                                                 <rect key="frame" x="0.0" y="0.0" width="92" height="30"/>
@@ -686,7 +754,7 @@ SwiftCards comes with 2 default sets of flashcards, “Introduction to the appli
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="GFz-qc-iaG">
-                                        <rect key="frame" x="0.0" y="165" width="343" height="30"/>
+                                        <rect key="frame" x="0.0" y="205" width="343" height="30"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Randomize Cards:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D6Y-4Q-0Py">
                                                 <rect key="frame" x="0.0" y="0.0" width="139.5" height="30"/>
@@ -705,6 +773,7 @@ SwiftCards comes with 2 default sets of flashcards, “Introduction to the appli
                                     </stackView>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="BDZ-sA-P64" firstAttribute="leading" secondItem="pQu-3E-cLW" secondAttribute="leading" id="EqF-1A-iSM"/>
                                     <constraint firstItem="pQu-3E-cLW" firstAttribute="leading" secondItem="ihH-B2-ZqL" secondAttribute="leading" id="G8e-v3-Q85"/>
                                     <constraint firstItem="pQu-3E-cLW" firstAttribute="leading" secondItem="sYM-C4-rY7" secondAttribute="leading" id="Ijd-ut-rwC"/>
                                 </constraints>
@@ -726,6 +795,7 @@ SwiftCards comes with 2 default sets of flashcards, “Introduction to the appli
                         <outlet property="randomCardsButton" destination="kT8-ow-zWh" id="iQf-9X-QMD"/>
                         <outlet property="setDescription" destination="ihH-B2-ZqL" id="W7j-RT-mvF"/>
                         <outlet property="setName" destination="sYM-C4-rY7" id="LAh-93-Q47"/>
+                        <outlet property="setSection" destination="BDZ-sA-P64" id="dVK-48-99t"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="myl-4M-oWI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -735,7 +805,7 @@ SwiftCards comes with 2 default sets of flashcards, “Introduction to the appli
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2086" y="147"/>
+            <point key="canvasLocation" x="2085.5999999999999" y="146.17691154422789"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="BO6-B1-Uhf">

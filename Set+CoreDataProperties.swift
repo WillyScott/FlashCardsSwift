@@ -1,9 +1,10 @@
 //
 //  Set+CoreDataProperties.swift
-//  FlashCardSwift
+//  SwiftCard
 //
-//  Created by Scott Gromme on 7/5/17.
-//  Copyright © 2017 Billys Awesome App House. All rights reserved.
+//  Created by Scott Gromme on 1/10/18.
+//  Copyright © 2018 Billys Awesome App House. All rights reserved.
+//
 //
 
 import Foundation
@@ -16,11 +17,15 @@ extension Set {
         return NSFetchRequest<Set>(entityName: "Set")
     }
 
+    @NSManaged public var count: Int32
+    @NSManaged public var countShow: Int32
     @NSManaged public var date: NSDate?
     @NSManaged public var descriptionSet: String?
     @NSManaged public var importURL: String?
     @NSManaged public var name: String?
     @NSManaged public var randomize: Bool
+    @NSManaged public var reverse: Bool
+    @NSManaged public var section: String?
     @NSManaged public var cards: NSOrderedSet?
 
 }

@@ -15,7 +15,8 @@ class SetTableViewCell: UITableViewCell {
     @IBOutlet weak var setLabel: UILabel!
     @IBOutlet weak var setDescription: UILabel!
     @IBOutlet weak var cardsLabel: UILabel!
-
+    @IBOutlet weak var setSection: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }

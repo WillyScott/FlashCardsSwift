@@ -14,6 +14,7 @@ class AddSetViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var setName: UITextField!
     @IBOutlet weak var setDescription: UITextView!
     @IBOutlet weak var importURL: UITextField!
+    @IBOutlet weak var setSection: UITextField!
     @IBOutlet weak var randomCardsButton: UIButton!
     @IBAction func randomCard(_ sender: UIButton) {
         if sender.titleLabel?.text == "False" {
@@ -43,6 +44,7 @@ class AddSetViewController: UIViewController, UITextFieldDelegate {
             setName.text = set.name
             setDescription.text = set.descriptionSet
             importURL.text = set.importURL
+            setSection.text = set.section
             if set.randomize {
                randomCardsButton.setTitle("True", for: .normal)
             } else {
@@ -66,9 +68,6 @@ class AddSetViewController: UIViewController, UITextFieldDelegate {
             } else if results.count > 1 {
                 assertionFailure()
             }
-            
-            
-           
         } catch let error as NSError {
             print("Fetch error: \(error) description \(error.userInfo)")
         }
@@ -89,6 +88,13 @@ class AddSetViewController: UIViewController, UITextFieldDelegate {
                     
                     set.name = setName.text
                     set.descriptionSet = setDescription.text
+                    // Assign the set description set it to "" if left blank
+                    if let _ = setSection.text {
+                        set.section = setSection.text
+                    } else {
+                        set.section = ""
+                    }
+                    //TODO set to "" if empty
                     if let _ = importURL.text {
                         set.importURL = importURL.text
                     }
@@ -106,6 +112,12 @@ class AddSetViewController: UIViewController, UITextFieldDelegate {
                     } else {
                         set.name = setName.text
                         set.descriptionSet = setDescription.text
+                        if let _ = setSection.text {
+                            set.section = setDescription.text
+                        } else {
+                            set.section = ""
+                        }
+                        //TODO set to "" if empty
                         if let _ = importURL.text {
                             set.importURL = importURL.text
                         }
@@ -131,6 +143,12 @@ class AddSetViewController: UIViewController, UITextFieldDelegate {
                     set.name = setName.text
                     set.descriptionSet = setDescription.text
                     set.date = NSDate()
+                    if let _ = setSection.text {
+                        set.section = setSection.text
+                    } else {
+                        set.section = ""
+                    }
+                    //TODO:  set import url to "" is nothing entered
                     if let _ = importURL.text {
                         set.importURL = importURL.text
                     }
