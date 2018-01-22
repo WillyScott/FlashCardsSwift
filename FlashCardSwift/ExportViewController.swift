@@ -9,19 +9,31 @@
 import UIKit
 
 class ExportViewController: UIViewController {
-
     
-    @IBOutlet weak var textExportedView: UITextView!
     var exportedSetCVS: String?
+    var exportedSetJSON: String?
+    var viewTitle = "Export"
     
+    @IBOutlet weak var textViewExport: UITextView!
     
-    
+    @IBAction func csvJsonButton(_ sender: UIBarButtonItem) {
+        if (sender.title == "CSV") {
+            sender.title = "JSON"
+            let text = exportedSetJSON ?? ""
+            textViewExport.text = text
+        } else {
+            sender.title = "CSV"
+            let text = exportedSetCVS ?? ""
+            textViewExport.text = text
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let text = exportedSetCVS {
-            textExportedView.text = text
-        }
-        
-        // Do any additional setup after loading the view.
+        title = viewTitle
+        //print("ExportViewController.viewDidLoad()")
+        let text = exportedSetJSON ?? ""
+        textViewExport.text = text
     }
+    
 }

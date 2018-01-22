@@ -25,6 +25,7 @@
 		F46B523A1EA67A5000F43484 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46B52391EA67A4F00F43484 /* PageViewController.swift */; };
 		F46B523C1EA6857900F43484 /* FlashCardFrontViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46B523B1EA6857900F43484 /* FlashCardFrontViewController.swift */; };
 		F46B523E1EA6859400F43484 /* FlashCardBackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46B523D1EA6859400F43484 /* FlashCardBackViewController.swift */; };
+		F4A90DF02010F0EA00B3D4E8 /* InitialDataLoaded.plist in Resources */ = {isa = PBXBuildFile; fileRef = F4A90DEF2010F0EA00B3D4E8 /* InitialDataLoaded.plist */; };
 		F4ABA9B11F292257006792A1 /* Card+HelperClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4ABA9B01F292257006792A1 /* Card+HelperClass.swift */; };
 		F4ABA9B31F29637D006792A1 /* ExportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4ABA9B21F29637D006792A1 /* ExportViewController.swift */; };
 		F4ABA9B51F2B6E3A006792A1 /* introductionSwiftCard.json in Resources */ = {isa = PBXBuildFile; fileRef = F4ABA9B41F2B6E3A006792A1 /* introductionSwiftCard.json */; };
@@ -56,6 +57,7 @@
 		F46B523B1EA6857900F43484 /* FlashCardFrontViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlashCardFrontViewController.swift; sourceTree = "<group>"; };
 		F46B523D1EA6859400F43484 /* FlashCardBackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlashCardBackViewController.swift; sourceTree = "<group>"; };
 		F495D86C1FFEC8AD00ED3BD7 /* FlashCardSwift v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FlashCardSwift v2.xcdatamodel"; sourceTree = "<group>"; };
+		F4A90DEF2010F0EA00B3D4E8 /* InitialDataLoaded.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = InitialDataLoaded.plist; sourceTree = "<group>"; };
 		F4ABA9B01F292257006792A1 /* Card+HelperClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Card+HelperClass.swift"; sourceTree = "<group>"; };
 		F4ABA9B21F29637D006792A1 /* ExportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportViewController.swift; sourceTree = "<group>"; };
 		F4ABA9B41F2B6E3A006792A1 /* introductionSwiftCard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = introductionSwiftCard.json; path = FlashCardSwift/introductionSwiftCard.json; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 		F4ABA9B81F2B6E4F006792A1 /* JSONData */ = {
 			isa = PBXGroup;
 			children = (
+				F4A90DEF2010F0EA00B3D4E8 /* InitialDataLoaded.plist */,
 				F4ABA9B61F2B6E42006792A1 /* Swift_KeywordsV3_0_1.json */,
 				F4ABA9B41F2B6E3A006792A1 /* introductionSwiftCard.json */,
 			);
@@ -202,6 +205,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4A90DF02010F0EA00B3D4E8 /* InitialDataLoaded.plist in Resources */,
 				F40D2CB51E60E3A20085191B /* LaunchScreen.storyboard in Resources */,
 				F40D2CB21E60E3A20085191B /* Assets.xcassets in Resources */,
 				F40D2CB01E60E3A20085191B /* Main.storyboard in Resources */,

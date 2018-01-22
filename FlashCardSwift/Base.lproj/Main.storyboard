@@ -126,6 +126,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="qIF-V8-KXO" secondAttribute="bottom" constant="5" id="iHx-dP-99m"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.4350585938" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <outlet property="cardsLabel" destination="Qba-oV-nHk" id="8UW-yZ-C2V"/>
                                             <outlet property="setDescription" destination="Do1-e4-ygR" id="lih-3r-gNX"/>
@@ -175,7 +176,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Or-9w-x6Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1895" y="-790"/>
+            <point key="canvasLocation" x="1759" y="-794"/>
         </scene>
         <!--Title-->
         <scene sceneID="squ-hx-JZW">
@@ -196,7 +197,7 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Front" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v5f-8O-epW">
                                             <rect key="frame" x="8" y="0.0" width="308" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
+                                            <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Back" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oyy-CU-dJO">
@@ -256,9 +257,9 @@
                                 <action selector="importCards:" destination="ep9-wK-w8I" id="Zln-AE-otz"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem title="Exportcsv" id="6hp-ot-5X8">
+                        <barButtonItem title="Export" id="6hp-ot-5X8">
                             <connections>
-                                <action selector="ExportData:" destination="ep9-wK-w8I" id="gQj-TE-baW"/>
+                                <action selector="ExportButtonItem:" destination="ep9-wK-w8I" id="UHR-4i-H1V"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
@@ -270,15 +271,14 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="exportButtonItem" destination="6hp-ot-5X8" id="rZR-CA-flw"/>
                         <outlet property="importBarButton" destination="Vuu-dZ-B1d" id="Sgy-m4-vZP"/>
                         <segue destination="rps-Dn-9JA" kind="show" identifier="SegueEditCard" id="BSz-CO-d9V"/>
-                        <segue destination="CSL-ij-BLs" kind="show" identifier="SegueExport" id="sYZ-PN-c1H"/>
+                        <segue destination="tj6-78-DTJ" kind="show" identifier="test" id="sB9-25-bU3"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D6v-J3-4CK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2975" y="-1065"/>
+            <point key="canvasLocation" x="3135" y="-1299"/>
         </scene>
         <!--Title-->
         <scene sceneID="2Xa-vi-gnK">
@@ -411,42 +411,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="3780" y="-807"/>
-        </scene>
-        <!--Export View Controller-->
-        <scene sceneID="U30-bN-4da">
-            <objects>
-                <viewController id="CSL-ij-BLs" customClass="ExportViewController" customModule="SwiftCard" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="NtT-80-zH6"/>
-                        <viewControllerLayoutGuide type="bottom" id="BAA-BF-TjI"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="fB3-eu-TJb">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Export Failed" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="MIn-cU-aOD">
-                                <rect key="frame" x="16" y="72" width="343" height="543"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="MIn-cU-aOD" firstAttribute="leading" secondItem="fB3-eu-TJb" secondAttribute="leadingMargin" id="TJB-wS-qfb"/>
-                            <constraint firstItem="BAA-BF-TjI" firstAttribute="top" secondItem="MIn-cU-aOD" secondAttribute="bottom" constant="8" symbolic="YES" id="Y1i-5B-47x"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="MIn-cU-aOD" secondAttribute="trailing" id="bsv-Vk-jol"/>
-                            <constraint firstItem="MIn-cU-aOD" firstAttribute="top" secondItem="NtT-80-zH6" secondAttribute="bottom" constant="8" symbolic="YES" id="uHr-I6-dDz"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="textExportedView" destination="MIn-cU-aOD" id="n5M-Zx-1ld"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="asM-Yo-Rav" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3905" y="-41"/>
+            <point key="canvasLocation" x="4266" y="-1299"/>
         </scene>
         <!--Page View Controller-->
         <scene sceneID="yjl-0y-jQw">
@@ -456,7 +421,56 @@
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cYs-Ns-QYL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2790" y="-7"/>
+            <point key="canvasLocation" x="2866" y="-525"/>
+        </scene>
+        <!--Title-->
+        <scene sceneID="cOl-M2-csp">
+            <objects>
+                <viewController id="tj6-78-DTJ" customClass="ExportViewController" customModule="SwiftCard" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jdw-p5-lT1"/>
+                        <viewControllerLayoutGuide type="bottom" id="WQL-zy-610"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="zvG-cL-zGG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kc5-gb-rgO">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                            </navigationBar>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Jba-pe-CZD">
+                                <rect key="frame" x="0.0" y="80" width="375" height="527"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Jba-pe-CZD" firstAttribute="top" secondItem="Kc5-gb-rgO" secondAttribute="bottom" constant="16" id="965-SU-tIT"/>
+                            <constraint firstItem="Kc5-gb-rgO" firstAttribute="top" secondItem="zvG-cL-zGG" secondAttribute="top" constant="20" id="Bcz-6c-rMT"/>
+                            <constraint firstItem="Jba-pe-CZD" firstAttribute="leading" secondItem="zvG-cL-zGG" secondAttribute="leading" id="Bnp-Ak-eHq"/>
+                            <constraint firstItem="Kc5-gb-rgO" firstAttribute="leading" secondItem="zvG-cL-zGG" secondAttribute="leading" id="aJZ-Cp-WY4"/>
+                            <constraint firstAttribute="trailing" secondItem="Jba-pe-CZD" secondAttribute="trailing" id="mzc-Lr-cqR"/>
+                            <constraint firstItem="WQL-zy-610" firstAttribute="top" secondItem="Jba-pe-CZD" secondAttribute="bottom" constant="16" id="qEZ-97-gfB"/>
+                            <constraint firstAttribute="trailing" secondItem="Kc5-gb-rgO" secondAttribute="trailing" id="uo6-6Q-VUJ"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Title" id="5tH-2s-Gvm">
+                        <barButtonItem key="rightBarButtonItem" title="CSV" id="kmp-0E-OyO">
+                            <connections>
+                                <action selector="csvJsonButton:" destination="tj6-78-DTJ" id="pWT-jp-mVw"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="textViewExport" destination="Jba-pe-CZD" id="z5E-I2-KMU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ipw-IF-gfN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4328.8000000000002" y="-2002.8485757121441"/>
         </scene>
         <!--Help View Controller-->
         <scene sceneID="oFW-Sf-Ysg">
@@ -504,7 +518,7 @@ SwiftCards comes with 2 default sets of flashcards, “Introduction to the appli
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0DQ-oF-PaO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1977" y="-1436"/>
+            <point key="canvasLocation" x="2305" y="-1719"/>
         </scene>
         <!--Flash Card Front View Controller-->
         <scene sceneID="oIq-au-UEN">
@@ -619,7 +633,7 @@ SwiftCards comes with 2 default sets of flashcards, “Introduction to the appli
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="5134" y="-609"/>
+            <point key="canvasLocation" x="3610" y="-444"/>
         </scene>
         <!--Flash Card Back View Controller-->
         <scene sceneID="HUD-vc-CP6">
@@ -665,7 +679,7 @@ SwiftCards comes with 2 default sets of flashcards, “Introduction to the appli
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="5920.8000000000002" y="-65.217391304347828"/>
+            <point key="canvasLocation" x="4377" y="-445"/>
         </scene>
         <!--Add Set View Controller-->
         <scene sceneID="jZb-i4-tyG">
@@ -828,11 +842,11 @@ SwiftCards comes with 2 default sets of flashcards, “Introduction to the appli
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jGi-WX-TY9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1190" y="-573"/>
+            <point key="canvasLocation" x="993" y="-795"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="KRv-Ct-HMm"/>
+        <segue reference="M1D-3f-HzT"/>
         <segue reference="EEv-ZD-PP9"/>
     </inferredMetricsTieBreakers>
 </document>

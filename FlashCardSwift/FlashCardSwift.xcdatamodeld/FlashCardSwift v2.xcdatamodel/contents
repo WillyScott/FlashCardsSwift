@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13533" systemVersion="17C88" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17C205" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Card" representedClassName="Card" syncable="YES">
         <attribute name="back" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -20,6 +20,7 @@
         <attribute name="section" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="cards" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Card" inverseName="set" inverseEntity="Card" syncable="YES"/>
     </entity>
+    <fetchRequest name="FetchRequestSet" entity="Set"/>
     <elements>
         <element name="Card" positionX="-54" positionY="-9" width="128" height="135"/>
         <element name="Set" positionX="-306" positionY="-171" width="128" height="195"/>

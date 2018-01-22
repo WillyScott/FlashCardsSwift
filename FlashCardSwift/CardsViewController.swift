@@ -29,21 +29,31 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
     var cardPredicates: NSCompoundPredicate?
     var cardsShuffled:[Card]?
     var exportCVS:String?
+    var exportJSON:String?
     
     private let segueEditCard = "SegueEditCard"
     private let segueAddNewCard = "SegueNewCard"
     private let seguePageViewController = "SeguePageView"
-    private let segueExport = "SegueExport"
+    private let segueExport = "SequeExportData"
     fileprivate var indexPathSeque: IndexPath?
     
-    @IBAction func ExportData(_ sender: UIBarButtonItem) {
-        print("func ExportData")
-        exportButtonItem.isEnabled = false
+    
+    
+    @IBAction func ExportButtonItem(_ sender: UIBarButtonItem) {
+        exportCVS = ExportData()
+        exportJSON = exportCardsToJson()
+        performSegue(withIdentifier: "test", sender: sender)
+    
+    }
+    
+    // Export CSV format
+    fileprivate func ExportData() -> String {
+        var tempString: String = ""
         let exportFilePath = NSTemporaryDirectory() + "export.csv"
         //print("the file path is \(exportFilePath)")
         let exportFileURL = URL(fileURLWithPath: exportFilePath)
         FileManager.default.createFile(atPath: exportFilePath, contents: Data(), attributes: nil)
-        
+
         let fileHandle:FileHandle?
         do {
             fileHandle = try FileHandle(forWritingTo: exportFileURL)
@@ -51,9 +61,15 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
             print("ERROR \(error.localizedDescription)")
             fileHandle = nil
         }
-        
+        //Write to temp file as test.
         if let fileHandle = fileHandle {
+           
             if let cards = fetchResultsController?.fetchedObjects {
+                
+                for card in cards {
+                   tempString = tempString + card.csv()
+                }
+                
                 for card in cards {
                     fileHandle.seekToEndOfFile()
                     //print(card.csv())
@@ -65,20 +81,19 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
                 fileHandle.closeFile()
                 do {
                     exportCVS = try String(contentsOf: exportFileURL)
-                    print(exportCVS ?? "Errror or no data found for export")
+                   print(exportCVS ?? "Errror or no data found for export")
                 } catch let error as NSError {
                     print ("Error \(error.localizedDescription)")
                 }
             }
         }
-        exportButtonItem.isEnabled = true
-        performSegue(withIdentifier: segueExport, sender: self)
+        return tempString
     }
-    //dlkdkkd
-    @IBOutlet weak var exportButtonItem: UIBarButtonItem!
     
+  
+    // Function resets cards show field to true if show field is false
+    // it wont show up in the flashcards
     @IBAction func resetCardsShowtoTrue(_ sender: UIBarButtonItem) {
-        
         let count = fetchResultsController?.fetchedObjects?.count  ?? 0
         if count > 0 {
             if let cards = fetchResultsController?.fetchedObjects {
@@ -92,6 +107,7 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
     
     @IBOutlet weak var importBarButton: UIBarButtonItem!
     
+    // Function that imports the cards using Https on a backgound thread
     @IBAction func importCards(_ sender: UIBarButtonItem) {
         var url: String
         importBarButton.isEnabled = false
@@ -146,6 +162,55 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
             }
         })
         task.resume()
+    }
+    
+    // Function to export the cards to JSON.
+    fileprivate func exportCardsToJson() ->String {
+        let headerJson = "{ \"cards\": [\n"
+        let beginBracket = "{\n"
+        let endBracket = "\n},\n"
+        let tailJson = "]\n}\n"
+        let front = "    \"front\":"
+        let back =  "    \"back\":"
+        let doubleQuote = "\",\n"
+        let doubleQuoteNoNewLine = "\""
+        var stringJson = headerJson
+        var cardFront = ""
+        var cardBack = ""
+        stringJson = headerJson
+        
+        
+        if let cards = fetchResultsController?.fetchedObjects {
+            stringJson = headerJson
+            
+            if (cards.count == 0 ) {
+                return ""
+            }
+            let countCards = cards.count
+            for  i in 0 ... countCards {
+                
+                if i == countCards {
+                    
+                }
+                
+            }
+            
+            for card in cards {
+                cardFront = card.front ?? ""
+                cardBack = card.back ?? ""
+                cardFront = cardFront.replacingOccurrences(of: "\"", with: "\\\"")
+                cardFront = cardFront.replacingOccurrences(of: "\n", with: "\\n")
+                cardBack = cardBack.replacingOccurrences(of: "\"", with: "\\\"")
+                cardBack = cardBack.replacingOccurrences(of: "\n", with: "\\n")
+                stringJson = stringJson + beginBracket
+                stringJson = stringJson + front + doubleQuoteNoNewLine + cardFront + doubleQuote
+                stringJson = stringJson + back  + doubleQuoteNoNewLine + cardBack + doubleQuoteNoNewLine + endBracket
+            }
+           
+            stringJson = stringJson + tailJson
+        }
+        print(stringJson)
+        return stringJson
     }
     
     fileprivate func importJSONToCoreData (_ flashCards: [[String:Any]]) {
@@ -246,6 +311,8 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
         
         return cards.count
     }
+     
+    
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CardTableViewCell.reuseIdentifier, for: indexPath) as? CardTableViewCell else {
@@ -254,6 +321,13 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
         guard let card = fetchResultsController?.object(at: indexPath) else {
             return cell
         }
+        //cell appearance
+        cell.layer.borderColor = UIColor.lightGray.cgColor
+        cell.layer.borderWidth = 1
+//        cell.layer.cornerRadius = 8
+//        cell.clipsToBounds = true
+//        cell.backgroundColor = UIColor.lightGray
+        
         cell.frontCard.text = card.front
         cell.backCard.text = card.back
         if card.show {
@@ -303,9 +377,10 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
                 pageViewController.coreDataStack = coreDataStack
                 
             }
-        } else if segue.identifier == segueExport {
+        } else if segue.identifier == "test" {
             let exportViewController = segue.destination as! ExportViewController
             exportViewController.exportedSetCVS = exportCVS
+            exportViewController.exportedSetJSON = exportJSON
             
         }
         // Unknow segue.

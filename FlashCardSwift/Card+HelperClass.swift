@@ -10,12 +10,18 @@ import Foundation
 import CoreData  
 
 extension Card {
-    
+    // converts Card front and back to strings replacing newlines returns with "\n"
+    // replaces " with "" and replaces , with \,
     func csv () -> String {
+        
         let frontString = front ?? ""
-        let frontStringMod = frontString.replacingOccurrences(of: "\"",with: "\"\"")
         let backString = back ?? ""
-        let backStringMod = backString.replacingOccurrences(of: "\"", with: "\"\"")
+        var frontStringMod = frontString.replacingOccurrences(of: "\n", with: "\\n")
+        frontStringMod = frontStringMod.replacingOccurrences(of: "\"", with: "\"\"")
+        frontStringMod = frontStringMod.replacingOccurrences(of: ",", with: "\\,")
+        var backStringMod = backString.replacingOccurrences(of: "\"", with: "\"\"")
+        backStringMod = backStringMod.replacingOccurrences(of: "\n", with: "\\n")
+        backStringMod = backStringMod.replacingOccurrences(of: ",", with: "\\,")
         return "\"" + frontStringMod + "\"" + "," + "\"" + backStringMod  + "\"" + "\n"
     }
     

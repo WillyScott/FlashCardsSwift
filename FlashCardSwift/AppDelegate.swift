@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-
+// data the gets imported first time app is installed and started
 extension String {
     static var fileNameIntroductionsSwift:String { return "introductionSwiftCard" }
     static var fileNameSwiftKeywords:String { return "Swift_KeywordsV3_0_1"  }
@@ -18,7 +18,8 @@ extension String {
     static var fileNameSwiftKeywordsPath:String { return "https://raw.githubusercontent.com/WillyScott/FlashCardsData/master/Swift_KeywordsV3_0_1.json"}
     static var fileNameIntroductionsSwiftDescription:String { return "Introduction to SwiftCards" }
     static var fileNameSwiftKeywordDescription:String { return "Swift keywords Version 3"}
-    
+    static var fileNameInitialLoad:String { return "InitialDataLoaded"}
+    static var plistExtension:String { return "plist"}
 }
 
 
@@ -43,6 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if !checkForData() {
             preloadJson()
         }
+        
         return true
     }
 
@@ -70,9 +72,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
+    //
     fileprivate func checkForData () -> Bool {
         let setRequest:NSFetchRequest<Set> = Set.fetchRequest()
-        
+        print("AppDelegate.checkForData()")
         do{
             let results = try coreDataStack.managedContext.fetch(setRequest)
             if results.count == 0 {
@@ -86,6 +89,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    // Function that checks to see if the initial load of data has already
+    fileprivate func readPlist() -> Bool {
+        struct Status: Codable {
+            var dataLoaded: Bool
+        }
+        
+        var settings: Status?
+        let settingstoWrite = Status(dataLoaded:true)
+        let settingsURL = Bundle.main.url(forResource: String.fileNameInitialLoad, withExtension: String.plistExtension)
+        
+        do {
+            
+            let   data = try Data(contentsOf: settingsURL!)
+            let decoder = PropertyListDecoder()
+            //settings = try decoder.decode(settings, from: data)
+            settings = try decoder.decode(Status.self, from: data)
+            if (settings?.dataLoaded == false) {
+                print("AppDelegate.readPlist() false")
+                // set the boolean value to true so the initial files won't be loaded
+                let encoder = PropertyListEncoder()
+                encoder.outputFormat = .xml
+                do {
+                    print("setting to true")
+                    let dataWritten = try encoder.encode(settingstoWrite)
+                    try dataWritten.write(to: settingsURL!)
+                } catch let error {
+                    print("Error writting to plist: " + error.localizedDescription)
+                }
+                return true
+            } else {
+                print("AppDelegate.readPlist() true")
+                return false
+            }
+   
+        } catch let error {
+                print("Error reading/decoding the plist file: " + error.localizedDescription )
+                return true
+        }
+    }
+    
+    
+    // Loads Json data in the bundle, this way a new app comes with data(doesnt have to use network
+    // to load), the data exists on the github acccount.
     fileprivate func preloadJson() {
         var flashCards : [[String:Any]]?
         let paths = [(String.fileNameIntroductionsSwift,String.fileNameIntroductionsSwiftPath, String.fileNameIntroductionsSwiftDescription ), (String.fileNameSwiftKeywords,String.fileNameSwiftKeywordsPath, String.fileNameSwiftKeywordDescription)]

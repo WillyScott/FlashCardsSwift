@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FlashCardSwift/ViewController.swift"
-            timestampString = "537304070.86303"
+            timestampString = "538105950.117932"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "16"
@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FlashCardSwift/CardsViewController.swift"
-            timestampString = "536534978.898681"
+            timestampString = "538342220.790851"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "12"
@@ -134,11 +134,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FlashCardSwift/ViewController.swift"
-            timestampString = "537304070.8654751"
+            timestampString = "538105950.118849"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
+            startingLineNumber = "189"
+            endingLineNumber = "189"
             landmarkName = "ViewController"
             landmarkType = "21">
          </BreakpointContent>
@@ -150,12 +150,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FlashCardSwift/CardsViewController.swift"
-            timestampString = "536534978.992346"
+            timestampString = "538342220.792364"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "318"
-            endingLineNumber = "318"
-            landmarkName = "configure(_:at:)"
+            startingLineNumber = "362"
+            endingLineNumber = "362"
+            landmarkName = "prepare(for:sender:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -214,11 +214,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FlashCardSwift/CardsViewController.swift"
-            timestampString = "536534978.992868"
+            timestampString = "538342220.79378"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
             landmarkName = "importCards(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -246,12 +246,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FlashCardSwift/CardsViewController.swift"
-            timestampString = "536534978.993296"
+            timestampString = "538342220.795086"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "289"
-            endingLineNumber = "289"
-            landmarkName = "prepare(for:sender:)"
+            startingLineNumber = "333"
+            endingLineNumber = "333"
+            landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

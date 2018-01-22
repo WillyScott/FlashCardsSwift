@@ -28,6 +28,11 @@ class ViewController: UIViewController {
     var coreDataStack: CoreDataStack!
     fileprivate  var fetchResultsSetsController: NSFetchedResultsController<Set>!
     
+    // Use to add up cards marked not shown
+    var fetchRequest: NSFetchRequest<Set>?
+    var sets: [Set] = []
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any? ) {
         
         if segue.identifier == sequeAddSetViewController {
@@ -63,8 +68,18 @@ class ViewController: UIViewController {
         updateView()
     }
     
+   
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+       guard let model =
+        coreDataStack.managedContext.persistentStoreCoordinator?.managedObjectModel,
+        let fetchRequest = model.fetchRequestTemplate(forName: "FetchRequestSet") as? NSFetchRequest<Set> else {
+            print("Error assigning model or fetchRequest" )
+            return
+        }
+        self.fetchRequest = fetchRequest
+        updateSetsCardsNotShow()
         reloadData()
         tableView.reloadData()
         setupView()
@@ -119,6 +134,12 @@ extension ViewController: UITableViewDataSource {
         cell.setDescription.text = set.descriptionSet
         cell.setLabel.text = set.name
         cell.setSection.text = set.section
+        // cell color
+        
+        cell.layer.borderColor = UIColor.black.cgColor
+        cell.layer.borderWidth = 1
+        cell.layer.cornerRadius = 8
+        cell.clipsToBounds = true
         return cell
     }
     
@@ -198,6 +219,14 @@ extension ViewController: NSFetchedResultsControllerDelegate {
         default:
            print("default")
         }
+    }
+    
+    
+}
+
+extension ViewController {
+    func updateSetsCardsNotShow() {
+        
     }
 }
 
