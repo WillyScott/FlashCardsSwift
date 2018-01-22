@@ -19,11 +19,11 @@ class ExportViewController: UIViewController {
     @IBAction func csvJsonButton(_ sender: UIBarButtonItem) {
         if (sender.title == "CSV") {
             sender.title = "JSON"
-            let text = exportedSetJSON ?? ""
+            let text = exportedSetCVS ?? ""
             textViewExport.text = text
         } else {
             sender.title = "CSV"
-            let text = exportedSetCVS ?? ""
+            let text = exportedSetJSON ?? ""
             textViewExport.text = text
         }
     }

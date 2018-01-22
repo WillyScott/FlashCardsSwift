@@ -34,7 +34,7 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
     private let segueEditCard = "SegueEditCard"
     private let segueAddNewCard = "SegueNewCard"
     private let seguePageViewController = "SeguePageView"
-    private let segueExport = "SequeExportData"
+    private let segueExport = "SegueExport"
     fileprivate var indexPathSeque: IndexPath?
     
     
@@ -42,7 +42,7 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
     @IBAction func ExportButtonItem(_ sender: UIBarButtonItem) {
         exportCVS = ExportData()
         exportJSON = exportCardsToJson()
-        performSegue(withIdentifier: "test", sender: sender)
+        performSegue(withIdentifier: segueExport, sender: sender)
     
     }
     
@@ -61,7 +61,7 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
             print("ERROR \(error.localizedDescription)")
             fileHandle = nil
         }
-        //Write to temp file as test.
+        //Write to temp file as test. To be used latter
         if let fileHandle = fileHandle {
            
             if let cards = fetchResultsController?.fetchedObjects {
@@ -89,7 +89,6 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
         }
         return tempString
     }
-    
   
     // Function resets cards show field to true if show field is false
     // it wont show up in the flashcards
@@ -169,6 +168,7 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
         let headerJson = "{ \"cards\": [\n"
         let beginBracket = "{\n"
         let endBracket = "\n},\n"
+        let endBracketnoComma = "\n}\n"
         let tailJson = "]\n}\n"
         let front = "    \"front\":"
         let back =  "    \"back\":"
@@ -177,8 +177,7 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
         var stringJson = headerJson
         var cardFront = ""
         var cardBack = ""
-        stringJson = headerJson
-        
+        //stringJson = headerJson
         
         if let cards = fetchResultsController?.fetchedObjects {
             stringJson = headerJson
@@ -187,26 +186,22 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
                 return ""
             }
             let countCards = cards.count
-            for  i in 0 ... countCards {
-                
-                if i == countCards {
-                    
-                }
-                
-            }
-            
-            for card in cards {
-                cardFront = card.front ?? ""
-                cardBack = card.back ?? ""
+            for  i in 0 ... countCards - 1 {
+                cardFront = cards[i].front ?? ""
+                cardBack = cards[i].back ?? ""
                 cardFront = cardFront.replacingOccurrences(of: "\"", with: "\\\"")
                 cardFront = cardFront.replacingOccurrences(of: "\n", with: "\\n")
                 cardBack = cardBack.replacingOccurrences(of: "\"", with: "\\\"")
                 cardBack = cardBack.replacingOccurrences(of: "\n", with: "\\n")
                 stringJson = stringJson + beginBracket
                 stringJson = stringJson + front + doubleQuoteNoNewLine + cardFront + doubleQuote
-                stringJson = stringJson + back  + doubleQuoteNoNewLine + cardBack + doubleQuoteNoNewLine + endBracket
+                
+                if (i == countCards - 1 ) {
+                    stringJson = stringJson + back  + doubleQuoteNoNewLine + cardBack + doubleQuoteNoNewLine + endBracketnoComma
+                } else {
+                    stringJson = stringJson + back  + doubleQuoteNoNewLine + cardBack + doubleQuoteNoNewLine + endBracket
+                }
             }
-           
             stringJson = stringJson + tailJson
         }
         print(stringJson)
@@ -227,7 +222,6 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
         
         do {
             try coreDataStack?.managedContext.save()
-            
         } catch {
             let description = NSLocalizedString("Could not process data and add to CoreData", comment: "Failed to import to CoreData")
             self.presentError(description, code: .commitingDataCoreDataFailed, underlyingError: error)
@@ -308,12 +302,8 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
         guard let cards = fetchResultsController?.fetchedObjects else {
             return 1
         }
-        
         return cards.count
     }
-     
-    
-
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CardTableViewCell.reuseIdentifier, for: indexPath) as? CardTableViewCell else {
              fatalError("Unexpected Index path")
@@ -377,7 +367,7 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
                 pageViewController.coreDataStack = coreDataStack
                 
             }
-        } else if segue.identifier == "test" {
+        } else if segue.identifier == segueExport {
             let exportViewController = segue.destination as! ExportViewController
             exportViewController.exportedSetCVS = exportCVS
             exportViewController.exportedSetJSON = exportJSON
@@ -420,7 +410,6 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
         case .delete:
             if let indexPath = indexPath {
                 tableView.deleteRows(at: [indexPath], with: .fade)
-
             }
         case .update:
             if let indexPath = indexPath, let cell = tableView.cellForRow(at: indexPath) as? CardTableViewCell {
@@ -431,7 +420,6 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
         default:
             print("default")
         }
-        
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

@@ -273,7 +273,7 @@
                     <connections>
                         <outlet property="importBarButton" destination="Vuu-dZ-B1d" id="Sgy-m4-vZP"/>
                         <segue destination="rps-Dn-9JA" kind="show" identifier="SegueEditCard" id="BSz-CO-d9V"/>
-                        <segue destination="tj6-78-DTJ" kind="show" identifier="test" id="sB9-25-bU3"/>
+                        <segue destination="tj6-78-DTJ" kind="show" identifier="SegueExport" id="sB9-25-bU3"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D6v-J3-4CK" userLabel="First Responder" sceneMemberID="firstResponder"/>
