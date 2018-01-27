@@ -12,7 +12,9 @@ class FlashCardBackViewController: UIViewController {
     
     var card: Card!
     
+    // MARK: - IBOutlet
     @IBOutlet weak var backFlashCard: UILabel!
+    // MARK: - IBAction
     @IBAction func tapDismissPressed(_ sender: UITapGestureRecognizer) {
         dismiss(animated: true, completion: nil)
     }
@@ -22,11 +24,5 @@ class FlashCardBackViewController: UIViewController {
         backFlashCard.lineBreakMode = .byWordWrapping
         backFlashCard.numberOfLines = 0
         backFlashCard.text = card.back
-
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 }

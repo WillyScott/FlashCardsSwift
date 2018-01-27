@@ -83,6 +83,9 @@
 		F40D2C9E1E60E3A20085191B = {
 			isa = PBXGroup;
 			children = (
+				F4D30D35201BC8090094EE8E /* TableViewCell */,
+				F4D30D34201BC7EF0094EE8E /* ViewControllers */,
+				F4D30D33201BC7C80094EE8E /* FileManager */,
 				F4ABA9B91F2BB5E2006792A1 /* CoreData */,
 				F40D2CA91E60E3A20085191B /* FlashCardSwift */,
 				F4ABA9B81F2B6E4F006792A1 /* JSONData */,
@@ -102,25 +105,10 @@
 			isa = PBXGroup;
 			children = (
 				F40D2CAA1E60E3A20085191B /* AppDelegate.swift */,
-				F40D2CAC1E60E3A20085191B /* ViewController.swift */,
 				F40D2CAE1E60E3A20085191B /* Main.storyboard */,
-				F4ABA9B21F29637D006792A1 /* ExportViewController.swift */,
-				F4ABA9B01F292257006792A1 /* Card+HelperClass.swift */,
-				F46B523B1EA6857900F43484 /* FlashCardFrontViewController.swift */,
-				F46B523D1EA6859400F43484 /* FlashCardBackViewController.swift */,
-				F46B52391EA67A4F00F43484 /* PageViewController.swift */,
-				F462CD491EA69E98001DEF2F /* ViewControllerProvider.swift */,
-				F422B7891E7C5A7A001EDF6B /* CardsViewController.swift */,
-				F4BD772B1E9FDA9D00C7D867 /* CardViewController.swift */,
-				F43A077C1E68D88A0030D2DB /* AddSetViewController.swift */,
-				F43A077A1E674D5A0030D2DB /* SetTableViewCell.swift */,
-				F4EC8B911E81899900D158CD /* CardTableViewCell.swift */,
-				F42216131E66068100287CEF /* FlashCardSwift.xcdatamodeld */,
 				F40D2CB11E60E3A20085191B /* Assets.xcassets */,
 				F40D2CB31E60E3A20085191B /* LaunchScreen.storyboard */,
 				F40D2CB61E60E3A20085191B /* Info.plist */,
-				F4FA905C1F30DF540069147C /* HelpViewController.swift */,
-				F4B4DC2D2017645400F2C35F /* FileManger+Helper.swift */,
 			);
 			path = FlashCardSwift;
 			sourceTree = "<group>";
@@ -138,13 +126,49 @@
 		F4ABA9B91F2BB5E2006792A1 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				F42216131E66068100287CEF /* FlashCardSwift.xcdatamodeld */,
 				F40D2CD81E60E3C60085191B /* CoreDataStack.swift */,
 				F42216191E660DC800287CEF /* Card+CoreDataProperties.swift */,
 				F42216171E660DC800287CEF /* Set+CoreDataProperties.swift */,
 				F42216181E660DC800287CEF /* Card+CoreDataClass.swift */,
 				F42216161E660DC800287CEF /* Set+CoreDataClass.swift */,
+				F4ABA9B01F292257006792A1 /* Card+HelperClass.swift */,
 			);
 			name = CoreData;
+			sourceTree = "<group>";
+		};
+		F4D30D33201BC7C80094EE8E /* FileManager */ = {
+			isa = PBXGroup;
+			children = (
+				F4B4DC2D2017645400F2C35F /* FileManger+Helper.swift */,
+			);
+			path = FileManager;
+			sourceTree = "<group>";
+		};
+		F4D30D34201BC7EF0094EE8E /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				F4FA905C1F30DF540069147C /* HelpViewController.swift */,
+				F40D2CAC1E60E3A20085191B /* ViewController.swift */,
+				F4ABA9B21F29637D006792A1 /* ExportViewController.swift */,
+				F46B523B1EA6857900F43484 /* FlashCardFrontViewController.swift */,
+				F46B52391EA67A4F00F43484 /* PageViewController.swift */,
+				F46B523D1EA6859400F43484 /* FlashCardBackViewController.swift */,
+				F462CD491EA69E98001DEF2F /* ViewControllerProvider.swift */,
+				F422B7891E7C5A7A001EDF6B /* CardsViewController.swift */,
+				F43A077C1E68D88A0030D2DB /* AddSetViewController.swift */,
+				F4BD772B1E9FDA9D00C7D867 /* CardViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		F4D30D35201BC8090094EE8E /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				F4EC8B911E81899900D158CD /* CardTableViewCell.swift */,
+				F43A077A1E674D5A0030D2DB /* SetTableViewCell.swift */,
+			);
+			path = TableViewCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -32,6 +32,8 @@ class PageViewController: UIPageViewController {
             title = name
         }
         if let _ = cards  {
+            
+            
             dataSource = self
             setViewControllers([initialViewController], direction: .forward, animated: false, completion: nil)
         } else {
@@ -40,7 +42,7 @@ class PageViewController: UIPageViewController {
     }
 }
 
-// MARK: -
+// MARK: - UIPageViewControlerDataSource
 extension PageViewController: UIPageViewControllerDataSource {
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -98,8 +100,6 @@ extension PageViewController: ViewControllerProvider {
         
         return nil
     }
-    
-    
-    
+
 }
 

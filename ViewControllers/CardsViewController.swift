@@ -3,13 +3,19 @@
 //  FlashCardSwift
 //
 //  Created by Scott Gromme on 3/17/17.
-//
-//
+//  View Controller that displays all the cards in a set
+//  The cards can be added, deleted or editied
+//  from this view controller the bottom button bar adds major functionality
+//  to this app
+//  All Core Data changes are commited when they happen.  This is by design.
+//  vs saving in one place.
 
 import UIKit
 import CoreData
 import GameplayKit
 
+
+// Private error codes
 private enum CardsViewControllerErrorCodes: Int {
     case serverConnectionFailed = 101
     case extractingJSONFailed = 102
@@ -22,6 +28,7 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
     //Passed in Via Segue
     var coreDataStack: CoreDataStack?
     var set: Set?
+    
     var fetchResultsController: NSFetchedResultsController<Card>?
     var cardSortDescriptor: NSSortDescriptor?
     var cardNamePredicate: NSPredicate?
@@ -38,56 +45,11 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
     fileprivate var indexPathSeque: IndexPath?
     
     
-    
+    // MARK: IBActions
     @IBAction func ExportButtonItem(_ sender: UIBarButtonItem) {
         exportCVS = ExportData()
         exportJSON = exportCardsToJson()
         performSegue(withIdentifier: segueExport, sender: sender)
-    
-    }
-    
-    // Export CSV format
-    fileprivate func ExportData() -> String {
-        var tempString: String = ""
-        let exportFilePath = NSTemporaryDirectory() + "export.csv"
-        //print("the file path is \(exportFilePath)")
-        let exportFileURL = URL(fileURLWithPath: exportFilePath)
-        FileManager.default.createFile(atPath: exportFilePath, contents: Data(), attributes: nil)
-
-        let fileHandle:FileHandle?
-        do {
-            fileHandle = try FileHandle(forWritingTo: exportFileURL)
-        } catch let error as NSError {
-            print("ERROR \(error.localizedDescription)")
-            fileHandle = nil
-        }
-        //Write to temp file as test. To be used latter
-        if let fileHandle = fileHandle {
-           
-            if let cards = fetchResultsController?.fetchedObjects {
-                
-                for card in cards {
-                   tempString = tempString + card.csv()
-                }
-                
-                for card in cards {
-                    fileHandle.seekToEndOfFile()
-                    //print(card.csv())
-                    guard let csvDataCard = card.csv().data(using: .utf8, allowLossyConversion: false) else {
-                        continue
-                    }
-                    fileHandle.write(csvDataCard)
-                }
-                fileHandle.closeFile()
-                do {
-                    exportCVS = try String(contentsOf: exportFileURL)
-                   print(exportCVS ?? "Errror or no data found for export")
-                } catch let error as NSError {
-                    print ("Error \(error.localizedDescription)")
-                }
-            }
-        }
-        return tempString
     }
   
     // Function resets cards show field to true if show field is false
@@ -163,6 +125,124 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
         task.resume()
     }
     
+    // MARK: - View Life Cycle  UIViewController
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        if let name = set?.name {
+            title = name
+        }
+        //TODO: Check into reloadData and .reloadData
+        reloadData(randomBool: false, showBool: true)
+        tableView.reloadData()
+        // print("CardsViewController.viewDidLoad()")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        //TODO: Check into reloadData and .reloadData
+        reloadData(randomBool: false, showBool: true)
+        tableView.reloadData()
+        //print("CardsViewController.viewWillAppear()")
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == segueEditCard {
+            let editCardViewController = segue.destination as! CardViewController
+            editCardViewController.set = set
+            editCardViewController.card = fetchResultsController?.object(at: indexPathSeque!)
+            editCardViewController.coreDataStack = coreDataStack
+            editCardViewController.cards = fetchResultsController!.fetchedObjects
+            editCardViewController.indexCards = indexPathSeque!.row
+            //, let indexPath = tableView.indexPathForSelectedRow
+        } else if segue.identifier == segueAddNewCard {
+            // pass set to add card to
+            let addCardViewController = segue.destination as! CardViewController
+            addCardViewController.set = set
+            addCardViewController.coreDataStack = coreDataStack
+        } else if segue.identifier == seguePageViewController {
+            let countCards = fetchResultsController?.fetchedObjects?.count ?? 0
+            let countCardsNoShow = set?.countShow ?? 0
+            //No cards dont start flash cards
+            if (countCards > 0) && countCardsNoShow < countCards {
+                let pageViewController = segue.destination as! PageViewController
+                // If deck should be shuffled and any cards are marked not to show
+                if set?.randomize == true {
+                    let  count: Int = fetchResultsController?.fetchedObjects?.count ?? 0
+                    if let cards = fetchResultsController?.fetchedObjects {
+                        for i in 0 ..< count {
+                            cards[i].randomsort = drand48()
+                        }
+                    }
+                    coreDataStack?.saveContext()
+                    //Reload fetchResultsController sorted randomly and with show = true
+                    reloadData(randomBool: true, showBool: false)
+                } else {
+                    reloadData(randomBool: false, showBool: false)
+                }
+                tableView.reloadData()
+                pageViewController.titleString = set?.name
+                pageViewController.cards = fetchResultsController?.fetchedObjects
+                pageViewController.coreDataStack = coreDataStack
+            
+            }
+        } else if segue.identifier == segueExport {
+            let exportViewController = segue.destination as! ExportViewController
+            exportViewController.exportedSetCVS = exportCVS
+            exportViewController.exportedSetJSON = exportJSON
+        }
+            // Unknow segue.
+        else {
+            //throw error
+            print("Unknown segue")
+        }
+    }
+    // MARK: Functions
+    
+    // Export CSV format
+    // TODO:  easier way and have a extra line space between the strings output
+    fileprivate func ExportData() -> String {
+        var tempString: String = ""
+        let exportFilePath = NSTemporaryDirectory() + "export.csv"
+        //print("the file path is \(exportFilePath)")
+        let exportFileURL = URL(fileURLWithPath: exportFilePath)
+        FileManager.default.createFile(atPath: exportFilePath, contents: Data(), attributes: nil)
+        
+        let fileHandle:FileHandle?
+        do {
+            fileHandle = try FileHandle(forWritingTo: exportFileURL)
+        } catch let error as NSError {
+            print("ERROR \(error.localizedDescription)")
+            fileHandle = nil
+        }
+        //Write to temp file as test. To be used latter
+        if let fileHandle = fileHandle {
+            
+            if let cards = fetchResultsController?.fetchedObjects {
+                
+                for card in cards {
+                    tempString = tempString + card.csv()
+                }
+                
+                for card in cards {
+                    fileHandle.seekToEndOfFile()
+                    //print(card.csv())
+                    guard let csvDataCard = card.csv().data(using: .utf8, allowLossyConversion: false) else {
+                        continue
+                    }
+                    fileHandle.write(csvDataCard)
+                }
+                fileHandle.closeFile()
+                do {
+                    exportCVS = try String(contentsOf: exportFileURL)
+                    print(exportCVS ?? "Errror or no data found for export")
+                } catch let error as NSError {
+                    print ("Error \(error.localizedDescription)")
+                }
+            }
+        }
+        return tempString
+    }
+    
     // Function to export the cards to JSON.
     fileprivate func exportCardsToJson() ->String {
         let headerJson = "{ \"cards\": [\n"
@@ -177,8 +257,7 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
         var stringJson = headerJson
         var cardFront = ""
         var cardBack = ""
-        //stringJson = headerJson
-        
+               
         if let cards = fetchResultsController?.fetchedObjects {
             stringJson = headerJson
             
@@ -218,7 +297,7 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
                 newCard.date = NSDate()
                 set?.addToCards(newCard)
              }
-        }
+         }
         
         do {
             try coreDataStack?.managedContext.save()
@@ -229,6 +308,7 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
         }
      }
     
+    // code from Apples Earthquakes demo
     fileprivate func presentError(_ description: String, code: CardsViewControllerErrorCodes, underlyingError error: Error?) {
         
         var userInfo: [String: AnyObject] = [
@@ -249,6 +329,8 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
         }
     }
     
+    // Reloads the data by fetching data
+    // TODO:  ReloadData is overkill
     private func reloadData(randomBool boolRandom: Bool, showBool boolShow: Bool) {
         let fetchRequest: NSFetchRequest<Card> = Card.fetchRequest()
         if boolRandom == false {
@@ -277,109 +359,6 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        if let name = set?.name {
-           title = name
-        }
-        reloadData(randomBool: false, showBool: true)
-        tableView.reloadData()
-        print("CardsViewController.viewDidLoad()")
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        reloadData(randomBool: false, showBool: true)
-        tableView.reloadData()
-        print("CardsViewController.viewWillAppear()")
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let cards = fetchResultsController?.fetchedObjects else {
-            return 1
-        }
-        return cards.count
-    }
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CardTableViewCell.reuseIdentifier, for: indexPath) as? CardTableViewCell else {
-             fatalError("Unexpected Index path")
-        }
-        guard let card = fetchResultsController?.object(at: indexPath) else {
-            return cell
-        }
-        //cell appearance
-        cell.layer.borderColor = UIColor.lightGray.cgColor
-        cell.layer.borderWidth = 1
-//        cell.layer.cornerRadius = 8
-//        cell.clipsToBounds = true
-//        cell.backgroundColor = UIColor.lightGray
-        
-        cell.frontCard.text = card.front
-        cell.backCard.text = card.back
-        if card.show {
-            cell.showCard.text = "TRUE"
-        } else {
-            cell.showCard.text = "FALSE"
-        }
-        return cell
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if segue.identifier == segueEditCard {
-            let editCardViewController = segue.destination as! CardViewController
-            editCardViewController.set = set
-            editCardViewController.card = fetchResultsController?.object(at: indexPathSeque!)
-            editCardViewController.coreDataStack = coreDataStack
-            editCardViewController.cards = fetchResultsController!.fetchedObjects
-            editCardViewController.indexCards = indexPathSeque!.row
-         //, let indexPath = tableView.indexPathForSelectedRow
-        } else if segue.identifier == segueAddNewCard {
-            // pass set to add card to
-            let addCardViewController = segue.destination as! CardViewController
-            addCardViewController.set = set
-            addCardViewController.coreDataStack = coreDataStack
-        } else if segue.identifier == seguePageViewController {
-            //No cards dont start flash cards
-            if (fetchResultsController?.fetchedObjects?.count)! > 0 {
-                let pageViewController = segue.destination as! PageViewController
-                // If deck should be shuffled and any cards are marked not to show
-                if set?.randomize == true {
-                    let  count: Int = fetchResultsController?.fetchedObjects?.count ?? 0
-                    if let cards = fetchResultsController?.fetchedObjects {
-                        for i in 0 ..< count {
-                            cards[i].randomsort = drand48()
-                         }
-                    }
-                    coreDataStack?.saveContext()
-                    //Reload fetchResultsController sorted randomly and with show = true
-                    reloadData(randomBool: true, showBool: false)
-                } else {
-                    reloadData(randomBool: false, showBool: false)
-                }
-                tableView.reloadData()
-                pageViewController.titleString = set?.name
-                pageViewController.cards = fetchResultsController?.fetchedObjects
-                pageViewController.coreDataStack = coreDataStack
-                
-            }
-        } else if segue.identifier == segueExport {
-            let exportViewController = segue.destination as! ExportViewController
-            exportViewController.exportedSetCVS = exportCVS
-            exportViewController.exportedSetJSON = exportJSON
-            
-        }
-        // Unknow segue.
-        else {
-            //throw error
-            print("Unknown segue")
-        }
-    }
-    
     func configure( _ cell: CardTableViewCell, at indexPath: IndexPath) {
         //Fetch Set
         let card = fetchResultsController?.object(at: indexPath)
@@ -391,7 +370,8 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
             cell.showCard.text = "FALSE"
         }
     }
-    
+  
+    // MARK: NSFetchResultsControllerDelegate
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()
     }
@@ -422,10 +402,44 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
         }
     }
     
+    
+    // MARK: UITableViewDataSource
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let cards = fetchResultsController?.fetchedObjects else {
+            return 1
+        }
+        return cards.count
+    }
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CardTableViewCell.reuseIdentifier, for: indexPath) as? CardTableViewCell else {
+            fatalError("Unexpected Index path")
+        }
+        guard let card = fetchResultsController?.object(at: indexPath) else {
+            return cell
+        }
+        //cell appearance
+        // TODO: Improve the cell visibility
+        cell.layer.borderColor = UIColor.lightGray.cgColor
+        cell.layer.borderWidth = 1
+        //        cell.layer.cornerRadius = 8
+        //        cell.clipsToBounds = true
+        //        cell.backgroundColor = UIColor.lightGray
+        
+        cell.frontCard.text = card.front
+        cell.backCard.text = card.back
+        if card.show {
+            cell.showCard.text = "TRUE"
+        } else {
+            cell.showCard.text = "FALSE"
+        }
+        return cell
+    }
+    
+    // MARK: UTTableViewDelegate
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let delete = UITableViewRowAction(style: .default, title: "Delete"){ ( action, indexPath) in
             let card = self.fetchResultsController?.object(at: indexPath)
@@ -443,9 +457,3 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
         return [edit, delete]
     }
 }
-
-
-  
-    
-
-

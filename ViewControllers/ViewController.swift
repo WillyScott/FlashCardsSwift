@@ -10,13 +10,8 @@ import UIKit
 import CoreData
 
 class ViewController: UIViewController {
-
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var messageLabel: UILabel!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBAction func helpInformaton(_ sender: UIBarButtonItem) {
-        
-    }
+    
+    
     
     private let emptyDatabase = "No Flashcard Sets"
     private let sequeAddSetViewController = "SegueAddSet"
@@ -27,12 +22,17 @@ class ViewController: UIViewController {
     // coreDataStack is initialized in AppDelegate.swift
     var coreDataStack: CoreDataStack!
     fileprivate  var fetchResultsSetsController: NSFetchedResultsController<Set>!
-    
     // Use to add up cards marked not shown
     var fetchRequest: NSFetchRequest<Set>?
     var sets: [Set] = []
     
+    // MARK: IBActions
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBAction func helpInformaton(_ sender: UIBarButtonItem) { }
     
+    // MARK: UIViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any? ) {
         
         if segue.identifier == sequeAddSetViewController {
@@ -51,28 +51,10 @@ class ViewController: UIViewController {
         }
     }
     
-    //If Sets is empty View will display text 
-    fileprivate func updateView () {
-        messageLabel.text =  emptyDatabase
-        var hasSets = false
-        if let sets = fetchResultsSetsController.fetchedObjects {
-            hasSets = sets.count > 0
-        }
-        tableView.isHidden = !hasSets
-        messageLabel.isHidden = hasSets
-        activityIndicator.stopAnimating()
-    }
-    
-    private func setupView() {
-        messageLabel.text =  emptyDatabase
-        updateView()
-    }
-    
-   
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-       guard let model =
+        // fetchrequest in model
+        guard let model =
         coreDataStack.managedContext.persistentStoreCoordinator?.managedObjectModel,
         let fetchRequest = model.fetchRequestTemplate(forName: "FetchRequestSet") as? NSFetchRequest<Set> else {
             print("Error assigning model or fetchRequest" )
@@ -94,13 +76,38 @@ class ViewController: UIViewController {
         setupView()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        //save the update to sets  countshow field
+        coreDataStack.saveContext()
+    }
+    
+    //MARK: functions
+    
+    //If Sets is empty View will display text
+    fileprivate func updateView () {
+        messageLabel.text =  emptyDatabase
+        var hasSets = false
+        if let sets = fetchResultsSetsController.fetchedObjects {
+            hasSets = sets.count > 0
+        }
+        tableView.isHidden = !hasSets
+        messageLabel.isHidden = hasSets
+        activityIndicator.stopAnimating()
+    }
+    
+    private func setupView() {
+        messageLabel.text =  emptyDatabase
+        updateView()
+    }
+    
     private func reloadData() {
         let fetchRequest: NSFetchRequest<Set> = Set.fetchRequest()
         // FetchRequest require sort descriptors
         // TODO: sort by section
-        let sort = NSSortDescriptor(key: #keyPath(Set.date), ascending: true)
+        let sort = NSSortDescriptor(key: #keyPath(Set.section), ascending: false)
         fetchRequest.sortDescriptors = [sort]
-        fetchResultsSetsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: coreDataStack.managedContext, sectionNameKeyPath: nil, cacheName: nil)
+        fetchResultsSetsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: coreDataStack.managedContext, sectionNameKeyPath: #keyPath(Set.section), cacheName: nil)
         fetchResultsSetsController.delegate = self
         
         do {
@@ -108,34 +115,70 @@ class ViewController: UIViewController {
         } catch let error as NSError {
             print("Fetching error: \(error), \(error.userInfo)")
         }
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+        
+        // Count each sets cards that are show is marked false
+        // save the update just before the ViewController is removed
+        let setsAll = fetchResultsSetsController.fetchedObjects
+//        let setsAllCount = setsAll?.count ?? 0
+//        print("ViewController.reloadData")
+//        print("sets count: " + String(setsAllCount))
+        for set in setsAll! {
+            var cardCountNotShow:Int32 = 0
+            for card in set.cards! {
+                // cast as Card
+                if let card = card as? Card {
+                    let show = card.show
+                    if show == false {
+                        cardCountNotShow = cardCountNotShow + 1
+                    }
+
+                } else {
+                    print("not able to cast to Card")
+                }
+ 
+            }
+            set.countShow = cardCountNotShow
+//            print("value of countShow is: " + String(cardCountNotShow))
+        }
     }
 }
 
 extension ViewController: UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let sets = fetchResultsSetsController.fetchedObjects else {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        guard let sections = fetchResultsSetsController.sections else {
             return 0
         }
-        return sets.count
+        
+        return sections.count
     }
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let sectionInfo = fetchResultsSetsController.sections?[section]
+        return sectionInfo?.name
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let sectionInfo = fetchResultsSetsController.sections?[section] else {
+            return 0
+        }
+        return sectionInfo.numberOfObjects
+    }
+  
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SetTableViewCell.reuseIdentifier, for: indexPath) as? SetTableViewCell else{
             fatalError("Unexpected Index Path"  )
         }
         
         let set = fetchResultsSetsController.object(at: indexPath)
-        cell.cardsLabel.text = String(set.cards?.count ?? 0)
+        let cardCount = String(set.countShow) + "/" + String(set.cards?.count ?? 0)
+        // TODO:  these assignments are not being used see func configure()
+        cell.cardsLabel.text = cardCount
         cell.setDescription.text = set.descriptionSet
         cell.setLabel.text = set.name
         cell.setSection.text = set.section
         // cell color
-        
         cell.layer.borderColor = UIColor.black.cgColor
         cell.layer.borderWidth = 1
         cell.layer.cornerRadius = 8
@@ -144,6 +187,7 @@ extension ViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        // TODO: delete these commits
 //        if editingStyle == .delete {
 //            print("delete editing style")
 //        } else {
@@ -154,7 +198,7 @@ extension ViewController: UITableViewDataSource {
     func configure( _ cell: SetTableViewCell, at indexPath: IndexPath) {
         //Fetch Set
         let setCurrent = fetchResultsSetsController.object(at: indexPath)
-        cell.cardsLabel.text = String(setCurrent.cards?.count ?? 0)
+        cell.cardsLabel.text = String(setCurrent.countShow) + "/" + String(setCurrent.cards?.count ?? 0)
         cell.setDescription.text = setCurrent.descriptionSet
         cell.setLabel.text = setCurrent.name
         cell.setSection.text = setCurrent.section
@@ -189,15 +233,12 @@ extension ViewController: UITableViewDelegate {
 extension ViewController: NSFetchedResultsControllerDelegate {
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        
         tableView.beginUpdates()
-        
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
         updateView()
-        
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
@@ -220,13 +261,11 @@ extension ViewController: NSFetchedResultsControllerDelegate {
            print("default")
         }
     }
-    
-    
+  
 }
-
+// TODO:  remove if not needed
 extension ViewController {
     func updateSetsCardsNotShow() {
-        
     }
 }
 
