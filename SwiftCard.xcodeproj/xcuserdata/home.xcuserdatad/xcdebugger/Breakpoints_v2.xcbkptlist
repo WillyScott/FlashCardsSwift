@@ -159,5 +159,53 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ViewControllers/CardsViewController.swift"
+            timestampString = "538949894.705655"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "292"
+            endingLineNumber = "292"
+            landmarkName = "ExportData()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SwiftCard.CardsViewController.(ExportData in _369265C069699D964BDADA29B539A315)() -&gt; Swift.String"
+                  moduleName = "SwiftCard"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/home/Developer/FlashCardsSwift/ViewControllers/CardsViewController.swift"
+                  timestampString = "538943172.546119"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "292"
+                  endingLineNumber = "292"
+                  offsetFromSymbolStart = "3984">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Bool) -&gt; () in SwiftCard.CardsViewController.(ExportData in _369265C069699D964BDADA29B539A315)() -&gt; Swift.String"
+                  moduleName = "SwiftCard"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/home/Developer/FlashCardsSwift/ViewControllers/CardsViewController.swift"
+                  timestampString = "538943172.550042"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "292"
+                  endingLineNumber = "292"
+                  offsetFromSymbolStart = "708">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

@@ -47,8 +47,8 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
     
     // MARK: IBActions
     @IBAction func ExportButtonItem(_ sender: UIBarButtonItem) {
-        exportCVS = ExportData()
         exportJSON = exportCardsToJson()
+        exportCVS = ExportData()
         performSegue(withIdentifier: segueExport, sender: sender)
     }
   
@@ -161,9 +161,21 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
             addCardViewController.coreDataStack = coreDataStack
         } else if segue.identifier == seguePageViewController {
             let countCards = fetchResultsController?.fetchedObjects?.count ?? 0
-            let countCardsNoShow = set?.countShow ?? 0
+            // Count cards marked as not shown.
+            var countCardsNotShow = 0
+            if let cards = fetchResultsController?.fetchedObjects {
+                for card in cards {
+                    if card.show == false {
+                        countCardsNotShow = countCardsNotShow + 1
+                    }
+                }
+                
+            } else {
+                countCardsNotShow = countCards
+            }
+
             //No cards dont start flash cards
-            if (countCards > 0) && countCardsNoShow < countCards {
+            if (countCards > 0) && countCardsNotShow < countCards {
                 let pageViewController = segue.destination as! PageViewController
                 // If deck should be shuffled and any cards are marked not to show
                 if set?.randomize == true {
@@ -234,12 +246,71 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
                 fileHandle.closeFile()
                 do {
                     exportCVS = try String(contentsOf: exportFileURL)
-                    print(exportCVS ?? "Errror or no data found for export")
+                    //print(exportCVS ?? "Errror or no data found for export")
                 } catch let error as NSError {
                     print ("Error \(error.localizedDescription)")
                 }
             }
         }
+        
+        //UIDocument
+        var document:MyDocument?
+        let fileName = set?.name ?? "emptyName"
+        //let fileManager = FileManager.default
+        let directoryPaths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        //let testURL = FileManager.default.urls(for: .userDirectory, in: .userDomainMask)[0]
+        let jsonURL = directoryPaths[0].appendingPathComponent(fileName).appendingPathExtension("json")
+
+        document = MyDocument(fileURL: jsonURL)
+        document?.documentText = exportJSON
+        
+        print("CardsViewController.ExportData file created")
+        document?.save(to: jsonURL, for: .forCreating, completionHandler: {(success:Bool) -> Void in
+            if success {
+                print("saved json data")
+                
+            } else {
+                print("failed to save")
+            }
+        })
+        if FileManager.default.fileExists(atPath: jsonURL.path) {
+          print("CardsViewController.ExportData file exists overwritten")
+          document?.open(completionHandler: { (success: Bool) -> Void in
+            if success {
+                    print("File opened adding JSON")
+                    document?.save(to: jsonURL, for: .forOverwriting, completionHandler: {(success:Bool) -> Void in
+                        if success {
+                            print("saved json")
+
+                        } else {
+                            print("couldn't save json")
+                        }
+                    })
+               } else {
+                    print("Couldn't open file")
+               }
+           })
+
+        } else {
+           print("CardsViewController.ExportData file created")
+            document?.save(to: jsonURL, for: .forCreating, completionHandler: {(success:Bool) -> Void in
+                if success {
+                    print("saved json data")
+
+                } else {
+                    print("failed to save")
+                }
+            })
+        }
+        
+        document?.close(completionHandler: { (success:Bool) -> Void in
+            if success {
+                print("CardsViewController.ExportData()  success - was able to close file")
+            }else {
+                print("CardsViewController.ExportData()  failure - unable to close file")
+            }
+
+        })
         return tempString
     }
     
@@ -283,7 +354,7 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
             }
             stringJson = stringJson + tailJson
         }
-        print(stringJson)
+        //print(stringJson)
         return stringJson
     }
     
@@ -332,7 +403,9 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
     // Reloads the data by fetching data
     // TODO:  ReloadData is overkill
     private func reloadData(randomBool boolRandom: Bool, showBool boolShow: Bool) {
+        print("CardsViewController.reloadData")
         let fetchRequest: NSFetchRequest<Card> = Card.fetchRequest()
+        //Sort the cards if set is marked as Random
         if boolRandom == false {
             cardSortDescriptor = NSSortDescriptor(key: #keyPath(Card.date), ascending: true)
         } else {
@@ -401,7 +474,6 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
             print("default")
         }
     }
-    
     
     // MARK: UITableViewDataSource
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

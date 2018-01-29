@@ -80,8 +80,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let results = try coreDataStack.managedContext.fetch(setRequest)
             if results.count == 0 {
                 return false
+            }else {
+                // For upgrades of FlashCardSwift the creation of a new field section
+                // causes a error problem with the first screen sorting on section field
+                for set in results {
+                    if let _ = set.section {
+                        
+                    } else {
+                        set.section = ""
+                    }
+                }
+                coreDataStack.saveContext()
             }
-            
+
         } catch let error as NSError {
             print("Fetch error: \(error) description \(error.userInfo)")
             return true
@@ -154,6 +165,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 setIntroduction.date = NSDate()
                 setIntroduction.importURL = path.1
                 setIntroduction.randomize = false
+                setIntroduction.section = ""
                 // add
                 for card in flashCards! {
                     if let front = card["front"] as? String, let back = card["back"] as? String  {

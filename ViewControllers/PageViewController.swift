@@ -18,22 +18,11 @@ class PageViewController: UIPageViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //view.gestureRecognizers
-//        let recognizers = gestureRecognizers
-//        for i in 0 ..<  recognizers.count {
-//            print("recognizers are set to \(recognizers[i].cancelsTouchesInView)")
-//            recognizers[i].cancelsTouchesInView = false
-//        }
-//        print("PageViewController")
-//        print("count of gestureRecognizer is \(recognizers.count)")
-        //If cards is not empty
         if let name = titleString {
             title = name
         }
+        // If a empty card set is sent or empty card set because all the cards are marked as known just return
         if let _ = cards  {
-            
-            
             dataSource = self
             setViewControllers([initialViewController], direction: .forward, animated: false, completion: nil)
         } else {
@@ -53,15 +42,14 @@ extension PageViewController: UIPageViewControllerDataSource {
                 return viewControllerAtIndex(pageIndex - 1)
               } else if pageIndex == 0 {
                 return viewControllerAtIndex(cards.count - 1)
-                
             }
         }
         return nil
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        
-        
+   
+        // allow the user to swipe left and go from card 1 to lastcard and vs versa
         if let viewController = viewController as? FlashCardFrontViewController, let pageIndex = viewController.pageIndex {
             if pageIndex < cards.count - 1 {
                 return viewControllerAtIndex(pageIndex + 1)
@@ -88,7 +76,6 @@ extension PageViewController: ViewControllerProvider {
     }
     
     func viewControllerAtIndex(_ index: Int) -> UIViewController? {
-        
         if let cardViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FlashCardFrontViewController") as? FlashCardFrontViewController {
             
             cardViewController.pageIndex = index
