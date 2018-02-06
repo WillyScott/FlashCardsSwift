@@ -71,13 +71,13 @@ class AddSetViewController: UIViewController, UITextFieldDelegate {
             } else {
                 set.descriptionSet = ""
             }
-            if let _ = setSection.text {
-                //print("set1")
-                set.section = setSection.text
+            let section = setSection.text ?? ""
+            if section.count > 0 {
+                set.section = section
             } else {
-                //print("set2")
-                set.section = ""
+                set.section = "NoSet"
             }
+
             if let _ = importURL.text {
                 set.importURL = importURL.text
             } else {
@@ -101,10 +101,12 @@ class AddSetViewController: UIViewController, UITextFieldDelegate {
                 set.descriptionSet = ""
             }
             set.date = NSDate()
-            if let _ = setSection.text {
-                set.section = setSection.text
+            let section = setSection.text ?? ""
+            
+            if section.count > 0 {
+                set.section = section
             } else {
-                set.section = ""
+                set.section = "NoSet"
             }
             //TODO:  set import url to "" is nothing entered
             if let _ = importURL.text {
@@ -116,114 +118,6 @@ class AddSetViewController: UIViewController, UITextFieldDelegate {
             coreDataStack.saveContext()
             _ = self.navigationController?.popViewController(animated: true)
          }
-        
-        
-//        var currentSet:Set?
-//        let fetchRequestSet:NSFetchRequest<Set> = Set.fetchRequest()
-//        let predicateSet = NSPredicate(format: "%K == %@", #keyPath(Set.name), setName.text! )
-//        fetchRequestSet.predicate = predicateSet
-//        //Set names must be unique
-//        //TODO:  Should get rid of unique constrain?
-//        do {
-//            let results = try coreDataStack.managedContext.fetch(fetchRequestSet)
-//            if results.count > 0  || results.count < 2{
-//                currentSet = results.first
-//            } else if results.count > 1 {
-//                assertionFailure()
-//            }
-//        } catch let error as NSError {
-//            print("Fetch error: \(error) description \(error.userInfo)")
-//        }
-//
-//        //TextField and TextView are not allowed to be empty
-//        if setDescription.text.isEmpty || setName.text!.isEmpty {
-//            print("Empty text not allowed")
-//            let alert = UIAlertController(title: "Alert", message: "Empty text field", preferredStyle: .alert)
-//            let cancelAction = UIAlertAction(title: "OK", style: .cancel)
-//            alert.addAction(cancelAction)
-//            present(alert, animated: true)
-//        } else {
-//
-//            // Set is being edited
-//            if let set = set {
-//                guard let coreDataStack = coreDataStack else { return }
-//                if set.name == setName.text {
-//
-//                    set.name = setName.text
-//                    set.descriptionSet = setDescription.text
-//                    //set.countShow = 0
-//                    // Assign the set description set it to "" if left blank
-//                    if let _ = setSection.text {
-//                        //print("set1")
-//                        set.section = setSection.text
-//                    } else {
-//                        //print("set2")
-//                        set.section = ""
-//                    }
-//                    //TODO set to "" if empty
-//                    if let _ = importURL.text {
-//                        set.importURL = importURL.text
-//                    }
-//                    set.randomize = booleanRandomizeCards(randomCardsButton)
-//                    coreDataStack.saveContext()
-//                    _ = self.navigationController?.popViewController(animated: true)
-//
-//                } else {  // Text field changed to a existing set and is not allowed
-//
-//                    if let set = currentSet {
-//                        let alert = UIAlertController(title: "Alert", message: "Set Name - \(String(describing: set.name)) is not unique", preferredStyle: .alert)
-//                        let cancelAction = UIAlertAction(title: "OK", style: .cancel)
-//                        alert.addAction(cancelAction)
-//                        present(alert, animated: true)
-//                    } else {
-//                        set.name = setName.text
-//                        set.descriptionSet = setDescription.text
-//                        if let _ = setSection.text {
-//                            set.section = setDescription.text
-//                        } else {
-//                            set.section = ""
-//                        }
-//                        //TODO set to "" if empty
-//                        if let _ = importURL.text {
-//                            set.importURL = importURL.text
-//                        }
-//                        set.randomize = booleanRandomizeCards(randomCardsButton)
-//                        coreDataStack.saveContext()
-//                        _ = self.navigationController?.popViewController(animated: true)
-//                    }
-//                }
-//            } else {  // Set is new
-//
-//                //Create and save the new Set
-//                // If managedObjectContext is not initialized return
-//
-//                if let _ = currentSet {
-//                    let alert = UIAlertController(title: "Alert", message: "Set Name - \(setName.text!) is not unique", preferredStyle: .alert)
-//                    let cancelAction = UIAlertAction(title: "OK", style: .cancel)
-//                    alert.addAction(cancelAction)
-//                    present(alert, animated: true)
-//
-//                } else {
-//                    guard let coreDataStack = coreDataStack else { return }
-//                    let set = Set(context: coreDataStack.managedContext)
-//                    set.name = setName.text
-//                    set.descriptionSet = setDescription.text
-//                    set.date = NSDate()
-//                    if let _ = setSection.text {
-//                        set.section = setSection.text
-//                    } else {
-//                        set.section = ""
-//                    }
-//                    //TODO:  set import url to "" is nothing entered
-//                    if let _ = importURL.text {
-//                        set.importURL = importURL.text
-//                    }
-//                    set.randomize = booleanRandomizeCards(randomCardsButton)
-//                    coreDataStack.saveContext()
-//                _ = self.navigationController?.popViewController(animated: true)
-//                }
-//            }
-//         }
     }
     
     // MARK: functions

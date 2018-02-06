@@ -13,11 +13,17 @@ import CoreData
 extension String {
     static var fileNameIntroductionsSwift:String { return "introductionSwiftCard" }
     static var fileNameSwiftKeywords:String { return "Swift_KeywordsV3_0_1"  }
+    static var fileNameSwiftKeywords4:String {return "SwiftKeywordsV4"}
     static var jsonExtension:String { return "json" }
     static var fileNameIntroductionsSwiftPath:String { return "https://raw.githubusercontent.com/WillyScott/FlashCardsData/master/introductionSwiftCard.json"}
     static var fileNameSwiftKeywordsPath:String { return "https://raw.githubusercontent.com/WillyScott/FlashCardsData/master/Swift_KeywordsV3_0_1.json"}
+    static var fileNameSwiftKeywordsPath4:String { return "https://raw.githubusercontent.com/WillyScott/FlashCardsData/master/SwiftKeywordsV4.json"}
     static var fileNameIntroductionsSwiftDescription:String { return "Introduction to SwiftCards" }
     static var fileNameSwiftKeywordDescription:String { return "Swift keywords Version 3"}
+    static var fileNameSwiftKeywordsDescription4:String {return "Swift keywords Version 4"}
+    static var fileNameIntroductionsSection:String {return "Introduction"}
+    static var fileNameSwiftKeywordsSection:String {return "Keywords"}
+    static var fileNameSwiftKeywordsSection4:String {return "Keywords"}
     static var fileNameInitialLoad:String { return "InitialDataLoaded"}
     static var plistExtension:String { return "plist"}
 }
@@ -87,7 +93,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     if let _ = set.section {
                         
                     } else {
-                        set.section = ""
+                        set.section = "blank"
                     }
                 }
                 coreDataStack.saveContext()
@@ -145,7 +151,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // to load), the data exists on the github acccount.
     fileprivate func preloadJson() {
         var flashCards : [[String:Any]]?
-        let paths = [(String.fileNameIntroductionsSwift,String.fileNameIntroductionsSwiftPath, String.fileNameIntroductionsSwiftDescription ), (String.fileNameSwiftKeywords,String.fileNameSwiftKeywordsPath, String.fileNameSwiftKeywordDescription)]
+        let paths = [(String.fileNameIntroductionsSwift,String.fileNameIntroductionsSwiftPath, String.fileNameIntroductionsSwiftDescription,String.fileNameIntroductionsSection ), (String.fileNameSwiftKeywords,String.fileNameSwiftKeywordsPath, String.fileNameSwiftKeywordDescription,String.fileNameSwiftKeywordsSection),(String.fileNameSwiftKeywords4,String.fileNameSwiftKeywordsPath4,String.fileNameSwiftKeywordsDescription4,String.fileNameSwiftKeywordsSection4)]
         for path in paths {
             if let jsonFileURL = Bundle.main.url(forResource: path.0, withExtension: String.jsonExtension) {
                 
@@ -165,7 +171,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 setIntroduction.date = NSDate()
                 setIntroduction.importURL = path.1
                 setIntroduction.randomize = false
-                setIntroduction.section = ""
+                setIntroduction.section = path.3
                 // add
                 for card in flashCards! {
                     if let front = card["front"] as? String, let back = card["back"] as? String  {

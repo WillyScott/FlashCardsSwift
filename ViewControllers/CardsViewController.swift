@@ -96,7 +96,6 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
             }
             
             // If we don't get data back, alert the user.
-            //
             guard let data = dataOptional else {
                 let description = NSLocalizedString("Could not get data from the remote server", comment: "Failed to connect to server")
                 self.presentError(description, code: .serverConnectionFailed, underlyingError: error)
@@ -105,7 +104,6 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
             }
             
             // If we get data but can't unpack it as JSON, alert the user.
-            //
             do {
                 if let jsonArray = try JSONSerialization.jsonObject(with: data, options: []) as? [String:Any],
                     let cards = jsonArray["cards"] as? [[String:Any]] {
@@ -131,10 +129,9 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
         if let name = set?.name {
             title = name
         }
-        //TODO: Check into reloadData and .reloadData
+        //TODO: Check into reloadData and .reloadData brute force
         reloadData(randomBool: false, showBool: true)
         tableView.reloadData()
-        // print("CardsViewController.viewDidLoad()")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -213,61 +210,29 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
     // Export CSV format
     // TODO:  easier way and have a extra line space between the strings output
     fileprivate func ExportData() -> String {
-        var tempString: String = ""
-        let exportFilePath = NSTemporaryDirectory() + "export.csv"
-        //print("the file path is \(exportFilePath)")
-        let exportFileURL = URL(fileURLWithPath: exportFilePath)
-        FileManager.default.createFile(atPath: exportFilePath, contents: Data(), attributes: nil)
-        
-        let fileHandle:FileHandle?
-        do {
-            fileHandle = try FileHandle(forWritingTo: exportFileURL)
-        } catch let error as NSError {
-            print("ERROR \(error.localizedDescription)")
-            fileHandle = nil
-        }
-        //Write to temp file as test. To be used latter
-        if let fileHandle = fileHandle {
-            
-            if let cards = fetchResultsController?.fetchedObjects {
-                
-                for card in cards {
-                    tempString = tempString + card.csv()
-                }
-                
-                for card in cards {
-                    fileHandle.seekToEndOfFile()
-                    //print(card.csv())
-                    guard let csvDataCard = card.csv().data(using: .utf8, allowLossyConversion: false) else {
-                        continue
-                    }
-                    fileHandle.write(csvDataCard)
-                }
-                fileHandle.closeFile()
-                do {
-                    exportCVS = try String(contentsOf: exportFileURL)
-                    //print(exportCVS ?? "Errror or no data found for export")
-                } catch let error as NSError {
-                    print ("Error \(error.localizedDescription)")
-                }
+        var csvString: String = ""
+        if let cards = fetchResultsController?.fetchedObjects {
+            for card in cards {
+                csvString = csvString + card.csv()
             }
         }
         
-        //UIDocument
-        var document:MyDocument?
+        //Save both json/csv to document
+        var documentJSON:MyDocument?
+        var documentCSV:MyDocument?
         let fileName = set?.name ?? "emptyName"
-        //let fileManager = FileManager.default
-        let directoryPaths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        //let testURL = FileManager.default.urls(for: .userDirectory, in: .userDomainMask)[0]
-        let jsonURL = directoryPaths[0].appendingPathComponent(fileName).appendingPathExtension("json")
-
-        document = MyDocument(fileURL: jsonURL)
-        document?.documentText = exportJSON
-        
-        print("CardsViewController.ExportData file created")
-        document?.save(to: jsonURL, for: .forCreating, completionHandler: {(success:Bool) -> Void in
+        let jsonURL = FileManager.documentDirectoryURL.appendingPathComponent(fileName).appendingPathExtension("json")
+        let csvURL = FileManager.documentDirectoryURL.appendingPathComponent(fileName).appendingPathExtension("csv")
+        // Document to store export
+        documentJSON = MyDocument(fileURL: jsonURL)
+        documentJSON?.documentText = exportJSON
+        documentCSV = MyDocument(fileURL:csvURL)
+        documentCSV?.documentText = csvString
+        // saving JSON
+        //
+        documentJSON?.save(to: jsonURL, for: .forCreating, completionHandler: {(success:Bool) -> Void in
             if success {
-                print("saved json data")
+                print("saved data to file")
                 
             } else {
                 print("failed to save")
@@ -275,47 +240,75 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
         })
         if FileManager.default.fileExists(atPath: jsonURL.path) {
           print("CardsViewController.ExportData file exists overwritten")
-          document?.open(completionHandler: { (success: Bool) -> Void in
+          documentJSON?.open(completionHandler: { (success: Bool) -> Void in
             if success {
-                    print("File opened adding JSON")
-                    document?.save(to: jsonURL, for: .forOverwriting, completionHandler: {(success:Bool) -> Void in
-                        if success {
-                            print("saved json")
-
-                        } else {
-                            print("couldn't save json")
-                        }
+                documentJSON?.save(to: jsonURL, for: .forOverwriting, completionHandler: {(success:Bool) -> Void in
+                    if !success {
+                            print("Couldn't save file")
+                    }
                     })
-               } else {
-                    print("Couldn't open file")
-               }
-           })
+            } else {
+                print("Couldn't open file")
+            }
+          })
 
         } else {
            print("CardsViewController.ExportData file created")
-            document?.save(to: jsonURL, for: .forCreating, completionHandler: {(success:Bool) -> Void in
+           documentJSON?.save(to: jsonURL, for: .forCreating, completionHandler: {(success:Bool) -> Void in
+                if !success {
+                    print("Failed to saved data")
+                }
+           })
+        }
+        documentJSON?.close(completionHandler: { (success:Bool) -> Void in
+            if !success {
+                print("Failed - unable to close file")
+            }
+        })
+        //saving CSV
+        documentCSV?.save(to: csvURL, for: .forCreating, completionHandler: {(success:Bool) -> Void in
+            if success {
+                print("saved data to file")
+                
+            } else {
+                print("failed to save")
+            }
+        })
+        if FileManager.default.fileExists(atPath: csvURL.path) {
+            print("CardsViewController.ExportData file exists overwritten")
+            documentCSV?.open(completionHandler: { (success: Bool) -> Void in
                 if success {
-                    print("saved json data")
-
+                    documentCSV?.save(to: csvURL, for: .forOverwriting, completionHandler: {(success:Bool) -> Void in
+                        if !success {
+                            print("Couldn't save file")
+                        }
+                    })
                 } else {
-                    print("failed to save")
+                    print("Couldn't open file")
+                }
+            })
+            
+        } else {
+            print("CardsViewController.ExportData file created")
+            documentCSV?.save(to: csvURL, for: .forCreating, completionHandler: {(success:Bool) -> Void in
+                if !success {
+                    print("Failed to saved data")
                 }
             })
         }
-        
-        document?.close(completionHandler: { (success:Bool) -> Void in
-            if success {
-                print("CardsViewController.ExportData()  success - was able to close file")
-            }else {
-                print("CardsViewController.ExportData()  failure - unable to close file")
+        documentCSV?.close(completionHandler: { (success:Bool) -> Void in
+            if !success {
+                print("Failed - unable to close file")
             }
-
         })
-        return tempString
+        
+        return csvString
     }
     
     // Function to export the cards to JSON.
+    //TODO: Rewrite using Codable
     fileprivate func exportCardsToJson() ->String {
+
         let headerJson = "{ \"cards\": [\n"
         let beginBracket = "{\n"
         let endBracket = "\n},\n"
@@ -354,7 +347,6 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
             }
             stringJson = stringJson + tailJson
         }
-        //print(stringJson)
         return stringJson
     }
     
@@ -401,9 +393,9 @@ class CardsViewController: UITableViewController , NSFetchedResultsControllerDel
     }
     
     // Reloads the data by fetching data
-    // TODO:  ReloadData is overkill
+    // TODO:  ReloadData is overkill brute force method FetchResultsController
     private func reloadData(randomBool boolRandom: Bool, showBool boolShow: Bool) {
-        print("CardsViewController.reloadData")
+        //print("CardsViewController.reloadData")
         let fetchRequest: NSFetchRequest<Card> = Card.fetchRequest()
         //Sort the cards if set is marked as Random
         if boolRandom == false {

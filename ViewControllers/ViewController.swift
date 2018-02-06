@@ -149,7 +149,6 @@ extension ViewController: UITableViewDataSource {
         guard let sections = fetchResultsSetsController.sections else {
             return 0
         }
-        
         return sections.count
     }
     
@@ -210,6 +209,40 @@ extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
+    // Different way to allow table editing.
+//    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//        guard let setSwiped = fetchResultsSetsController?.object(at: indexPath) else {return nil}
+//        let deleteAction = UIContextualAction(style: .destructive, title: "Delete"){
+//            [weak self] (action , view , completionHandler) in
+//            guard let `self` = self else {
+//                completionHandler(false)
+//                return
+//            }
+//            setSwiped.managedObjectContext?.delete(setSwiped)
+//            self.coreDataStack.saveContext()
+//            completionHandler(true)
+//        }
+//        deleteAction.backgroundColor = UIColor.red
+//        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+//        return configuration
+//    }
+//
+//    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//        guard let setSwiped = fetchResultsSetsController?.object(at: indexPath) else {return nil}
+//        let editAction = UIContextualAction(style: .normal, title: "Edit") {
+//            [weak self] (action, view, completionHandler) in
+//            guard let `self` = self else {
+//                completionHandler(false)
+//                return
+//            }
+//            // segue to the edit set
+//            print("Edit set should go to segue")
+//            completionHandler(true)
+//        }
+//        editAction.backgroundColor = UIColor.green
+//        let configuration = UISwipeActionsConfiguration(actions: [editAction])
+//        return configuration
+//    }
 
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let delete = UITableViewRowAction(style: .normal, title: "Delete") { (action, indexPath) in
@@ -217,9 +250,10 @@ extension ViewController: UITableViewDelegate {
             let set = self.fetchResultsSetsController.object(at: indexPath)
             set.managedObjectContext?.delete(set)
             self.coreDataStack.saveContext()
+            //tableView.reloadData()
         }
         delete.backgroundColor = UIColor.red
-        
+
         let edit = UITableViewRowAction (style: .normal, title: "Edit") { (action, indexPath) in
             self.isEditing = false
             self.indexPathSegue = indexPath
@@ -232,14 +266,34 @@ extension ViewController: UITableViewDelegate {
 
 extension ViewController: NSFetchedResultsControllerDelegate {
     
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        switch (type) {
+        case NSFetchedResultsChangeType.delete:
+            tableView.deleteSections(IndexSet(integer:sectionIndex), with: .fade)
+        case .insert:
+            tableView.insertSections(IndexSet(integer:sectionIndex), with: .fade)
+        case .update:
+            break
+        case .move:
+            break
+        }
+    }
+    
+    
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()
     }
     
+    
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        //causes error 2 lines
+        print("controller")
         tableView.endUpdates()
         updateView()
+        tableView.reloadData()
     }
+    
+    
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch (type) {
@@ -261,6 +315,8 @@ extension ViewController: NSFetchedResultsControllerDelegate {
            print("default")
         }
     }
+    
+    
   
 }
 // TODO:  remove if not needed

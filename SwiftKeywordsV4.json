@@ -1,0 +1,375 @@
+{ "cards":[
+    {
+        "front": "Gives a placeholder\" name to a type that is used as part of a protocol.",
+        "back": "associatedtype ( keyword typealias is sometimes used to declare the concrete type, but Swifts type inference doesn't require it)"
+    },
+    {
+        "front": "General-purpose, flexible construct that becomes the building blocks of a program. With features like inheritance, type casting, deinitializers, and reference counting.",
+        "back": "Class"
+    },
+    {
+        "front": "Called immediately before a class instance is deallocated.",
+        "back": "deinit"
+    },
+    {
+        "front": "Common type for a group of related values, enables type safe, first-class type, with features typically supported only by classes in other languages.",
+        "back": "enum"
+    },
+    {
+        "front": "Used to add new functionality to existing class, structure, enumeration, or protocol type. Can not store values.",
+        "back": "extension"
+    },
+    {
+        "front": "Access control construct that restricts scope to only the defining source file.",
+        "back": "fileprivate"
+    },
+    {
+        "front": "Self-contained chunk of code that perform a specitic task.",
+        "back": "func"
+    },
+    {
+        "front": "Exposes a framework or application that is build and shipped as a single unit into the given binary.",
+        "back": "import"
+    },
+    {
+        "front": "Initializes a instance of a class, structure, of ennumeration for use.",
+        "back": "init"
+    },
+    {
+        "front": "A value that is passed to a function and modified by it.",
+        "back": "inout"
+    },
+    {
+        "front": "Access control consruct that allows entities to be used within any source file from its defining module.",
+        "back": "internal"
+    },
+    {
+        "front": "Defines a variable as immutable.",
+        "back": "let"
+    },
+    {
+        "front": "Access control construct that allows object to be both accessible and subclasssabel outside of its defining module.",
+        "back": "open"
+    },
+    {
+        "front": "Special symbol of phase that you use to check, change, or combine values.",
+        "back": "operator - like  '-', '+', '&&', ternary conditional "
+    },
+    {
+        "front": "Access control construct that allows entites to be scoped to it defining declaration",
+        "back": "private"
+    },
+    {
+        "front": "Defines a blueprint of methods, properties, and other requirements that suit a particular task or piece of functionality.",
+        "back": "protocol"
+    },
+    {
+        "front": "Access control construct that allows objects to be both accessible and subclassable but only inside of its defining module.",
+        "back": "public"
+    },
+    {
+        "front": "Defines methods that are called on the type itself.",
+        "back": "static"
+    },
+    {
+        "front": "General-purpose flexible contruct that becomes the building blocks of your program code and can provide member wise initializers. Passed by value and not reference and doesn't use reference counting.",
+        "back": "struct"
+    },
+    {
+        "front": "A shortcut for accessing the member elements of a collection, list, or sequence.",
+        "back": "subscript"
+    },
+    {
+        "front": "A named alias of an existing type in program.",
+        "back": "typealias"
+    },
+    {
+        "front": "Defines a variable as a mutable variable.",
+        "back": "var"
+    },
+    {
+        "front": "Ends program execution of a loop, an if statement, or a switch statement.",
+        "back": "break"
+    },
+    {
+        "front": "A statement that is evaluated and then compared with the provided patterns inside a switch statement.",
+        "back": "case"
+    },
+    {
+        "front": "Ends program execution of current iteration of a loop statement but does not stop execution of loop.",
+        "back": "continue"
+    },
+    {
+        "front": "Used to cover any values that are not addressed explicitly in a case.",
+        "back": "default"
+    },
+    {
+        "front": "Used for execution code just before transferring program control outside of the scope that  if appears in.",
+        "back": "defer"
+    },
+    {
+        "front": "Begins a statement to handle errors by running a block of code.",
+        "back": "do"
+    },
+    {
+        "front": "Used in conjunction with a \"if\" statement. Executes one part of code when the condition is true and another part of code when the same conditoin is false.",
+        "back": "else"
+    },
+    {
+        "front": "Explicitly allows execution to continue from one case to the next in a switch statement.",
+        "back": "fallthrough"
+    },
+    {
+        "front": "Iterates over a sequence such as ranges of numbers, items in a array, or characters in a string (used with in keyword)",
+        "back": "for"
+    },
+    {
+        "front": "Used to transfer program out of scope is one or more conditons are met, while also unwrapping any optional values provided.",
+        "back": "guard"
+    },
+    {
+        "front": "Used for executing code based on the evaluation of one or more conditions.",
+        "back": "if"
+    },
+    {
+        "front": "Iterates over a sequence, such as ranges of numbers , items in a array, or characters in a string (used with for keyword)",
+        "back": "in"
+    },
+    {
+        "front": "Performs a single pass through the loop block first, before considering the loop's conditioin.",
+        "back": "repeat"
+    },
+    {
+        "front": "Immediately breaks control out of the current context, and additionaly returns a value supplied after it if one is present.",
+        "back": "return"
+    },
+    {
+        "front": "Considers a value and compares it against serveral possibel matching patterns. Used with case keyword.",
+        "back": "switch"
+    },
+    {
+        "front": "Requires that an associated type must conform to a certain protocol, or that certain type parameters and associated types must be the same, or that a addtional condition within a pattern in cases that are condidered to be matched to the control expression.",
+        "back": "where"
+    },
+    {
+        "front": "Performs a set of statements until a conditions becomes false.",
+        "back": "while"
+    },
+    {
+        "front": "Can be used to represent a instance of any type at all, including function types.",
+        "back": "Any"
+    },
+    {
+        "front": "A type cast operator used to attempt to cast a value to a different, or an expected and specific tye.",
+        "back": "as , as! , as?"
+    },
+    {
+        "front": "If a error is thrown by code in a do clause, its matched against a catch clause to determine how the error is handled.",
+        "back": "catch"
+    },
+    {
+        "front": "Boolean value , not true.",
+        "back": "false "
+    },
+    {
+        "front": "A type check operator used to determine whether an instance is of a certain subclass type.",
+        "back": "is"
+    },
+    {
+        "front": "Represents a stateless value for any type in Swift.(not a pointer to a nonexistent object)",
+        "back": "nil"
+    },
+    {
+        "front": "Indicates that the function throws an error only if one of its parameters throws an error.",
+        "back": "rethrows"
+    },
+    {
+        "front": "Exposes access to the superclasss version of a method, property or subscript.",
+        "back": "super"
+    },
+    {
+        "front": "Implicity property that every instance of a type has, which is exactly equivalent to the instance itself.",
+        "back": "self"
+    },
+    {
+        "front": "In protocols , represents the type that will eventually conform to the givern protocol",
+        "back": "Self"
+    },
+    {
+        "front": "Used to explicitly throw an error from the current context.",
+        "back": "throw"
+    },
+    {
+        "front": "Indicates that a function , method, or initializer can potentially throw an error.",
+        "back": "throws"
+    },
+    {
+        "front": "Boolean value,  positive, not false.",
+        "back": "true "
+    },
+    {
+        "front": "Indicates that the following function could potentially throw an error. 3 different ways( , ?, !)",
+        "back": "try"
+    },
+    {
+        "front": "A wildcard pattern that matches and ignores any value.",
+        "back": "_"
+    },
+    {
+        "front": "A condition of an if, while, and guard statement to query availability fo APIs at runtime.",
+        "back": "#available"
+    },
+    {
+        "front": "A playground literal which bringss up an interactive color picker to assign a variable.",
+        "back": "#colorLiteral"
+    },
+    {
+        "front": "Literal expression that returns the column number i which it begins.",
+        "back": "#column"
+    },
+    {
+        "front": "Conditional compiler control statement that allows the program to conditionally compile some given code.",
+        "back": "#else"
+    },
+    {
+        "front": "Condtional compiler control statement that allows the program to conditionally compile some given code.",
+        "back": "#elseif"
+    },
+    {
+        "front": "Condtional compiler control statement that allows the program to condtionally compile some given code.",
+        "back": "#endif"
+    },
+    {
+        "front": "Special literal expression that returns the name of the file which is appears.",
+        "back": "#file"
+    },
+    {
+        "front": "Playgound literal whick brings up a picker to select a file which returns a NSURL instance.",
+        "back": "#fileReference"
+    },
+    {
+        "front": "Special literal expression which returns the name of a function, inside a method it is the anem of that method, inside a property getter of setter is is the name of that property, inside special meembers like init or subscript.",
+        "back": "#function"
+    },
+    {
+        "front": "Conditional compiler control statement that allows the program to conditonally compile some given code.",
+        "back": "#if"
+    },
+    {
+        "front": "Playground liter which brings up a picker to select an image which returns a UIImage instance.",
+        "back": "#imageLiteral"
+    },
+    {
+        "front": "Special literal expression which returns the line number on whick is appears.",
+        "back": "#line"
+    },
+    {
+        "front": "Expression that forms the Objective-C selector which uses static checking to ensure that the method exists and thats it's also exposed to Objective-C.",
+        "back": "#selector"
+    },
+    {
+        "front": "Line control statement used to specify a line number and filename that can be different from the line number and filename of the source code being compiled.",
+        "back": "#souceLocation"
+    },
+    {
+        "front": "Specifies how a sequence of operators with the same precedence level are grouped together in the absence of grouping parentheses by using left, right or none.",
+        "back": "associativity"
+    },
+    {
+        "front": "Secondary, supporting initializers for a class that eventually delegate initialization of the instance to a designate initializer.",
+        "back": "convenience"
+    },
+    {
+        "front": "Indicates access to the member or function is never inlined or devirtualized by the compiler, which means access to that member is always dynamically dispatched ( instead of statically) using Objective-C runtime.",
+        "back": "dynamic"
+    },
+    {
+        "front": "A property observer that is invoked immediattely after a value is stored on a property.",
+        "back": "didSet"
+    },
+    {
+        "front": "Prevents a method , property of subscript from being overridden.",
+        "back": "final"
+    },
+    {
+        "front": "Returns the given value for a member.  Also used with computed properties to get other properties and values indirectly.",
+        "back": "get"
+    },
+    {
+        "front": "Specifies that an operator is used between two targets.",
+        "back": "infix"
+    },
+    {
+        "front": "Indicates that an enumeration has another instance of the enumeration as the associated value for one or more of enumeration cases.",
+        "back": "indirect"
+    },
+    {
+        "front": "A property whose initial value is not calculated until the first time is is used.",
+        "back": "lazy"
+    },
+    {
+        "front": "Specifies the associativity of an operator a left-to-right so operators with the same precedence are grouped together correctly in the absence of grouping parentheses.",
+        "back": "left"
+    },
+    {
+        "front": "Allows modification of the properties fo a structure or enumeration withing a particular method",
+        "back": "mutating"
+    },
+    {
+        "front": "Specifies that an operator has the absence of any associativity applied to is, which restricts operators of the same precedence level fro appearing adjacent to each to other.",
+        "back": "none"
+    },
+    {
+        "front": "Indicates that a members setter doesn't modify the containing instance, but rather has other intended consequences.",
+        "back": "nonmutating"
+    },
+    {
+        "front": "Used to declare optional methods in protocols.",
+        "back": "optional"
+    },
+    {
+        "front": "Indicated that a subclass will provide its own custom implementaton of an instance method, type method, instance property, type property, or subscript that is would otherwise inherit from a superclass.",
+        "back": "override"
+    },
+    {
+        "front": "Specifies that an operator follows the target that is operates on.",
+        "back": "postfix"
+    },
+    {
+        "front": "Represent an operators's higher priority than others, so that these operators are applied first.",
+        "back": "pecedence"
+    },
+    {
+        "front": "Specifies that an operator precedes the target it operates on.",
+        "back": "prefix"
+    },
+    {
+        "front": "Enforces the compiler to make sure that every subclass of the class must implement the given initializer.",
+        "back": "required"
+    },
+    {
+        "front": "Specifies the associativity of an operator as right-to-left so operators with the same precedence level are grouped together in the absence of grouping parentheses.",
+        "back": "right"
+    },
+    {
+        "front": "Takes a value for a member to set as its new value.",
+        "back": "set"
+    },
+    {
+        "front": "Refers to the type of any type, including class types, structure types, enumeration types and protocol types.",
+        "back": "Type "
+    },
+    {
+        "front": "Enables one instance in a reference cycle to refer to the other instance without keeping a strong hold on it when the other instance has the same lifetime or a longer lifetime.",
+        "back": "unowned"
+    },
+    {
+        "front": "Enables one instance in a reference cycle to refer to the other instance without keeping a strong holf on it when the other instance has a shorter lifetime - that is , when the other instance can be deallocated first.",
+        "back": "weak"
+    },
+    {
+        "front": "Property observer that is invoked right  before a value is stored on a property.",
+        "back": "willSet"
+    }
+]
+}
