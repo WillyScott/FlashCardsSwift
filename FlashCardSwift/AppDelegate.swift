@@ -12,17 +12,17 @@ import CoreData
 // data the gets imported first time app is installed and started
 extension String {
     static var fileNameIntroductionsSwift:String { return "introductionSwiftCard" }
-    static var fileNameSwiftKeywords:String { return "Swift_KeywordsV3_0_1"  }
+    //static var fileNameSwiftKeywords:String { return "Swift_KeywordsV3_0_1"  }
     static var fileNameSwiftKeywords4:String {return "SwiftKeywordsV4"}
     static var jsonExtension:String { return "json" }
     static var fileNameIntroductionsSwiftPath:String { return "https://raw.githubusercontent.com/WillyScott/FlashCardsData/master/introductionSwiftCard.json"}
-    static var fileNameSwiftKeywordsPath:String { return "https://raw.githubusercontent.com/WillyScott/FlashCardsData/master/Swift_KeywordsV3_0_1.json"}
+    //static var fileNameSwiftKeywordsPath:String { return "https://raw.githubusercontent.com/WillyScott/FlashCardsData/master/Swift_KeywordsV3_0_1.json"}
     static var fileNameSwiftKeywordsPath4:String { return "https://raw.githubusercontent.com/WillyScott/FlashCardsData/master/SwiftKeywordsV4.json"}
     static var fileNameIntroductionsSwiftDescription:String { return "Introduction to SwiftCards" }
     static var fileNameSwiftKeywordDescription:String { return "Swift keywords Version 3"}
     static var fileNameSwiftKeywordsDescription4:String {return "Swift keywords Version 4"}
     static var fileNameIntroductionsSection:String {return "Introduction"}
-    static var fileNameSwiftKeywordsSection:String {return "Keywords"}
+    //static var fileNameSwiftKeywordsSection:String {return "Keywords"}
     static var fileNameSwiftKeywordsSection4:String {return "Keywords"}
     static var fileNameInitialLoad:String { return "InitialDataLoaded"}
     static var plistExtension:String { return "plist"}
@@ -81,7 +81,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //
     fileprivate func checkForData () -> Bool {
         let setRequest:NSFetchRequest<Set> = Set.fetchRequest()
-        print("AppDelegate.checkForData()")
+        //print("AppDelegate.checkForData()")
         do{
             let results = try coreDataStack.managedContext.fetch(setRequest)
             if results.count == 0 {
@@ -105,53 +105,53 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         return true
     }
-    
+    // TODO: Evaluate plist or Coredata to store loaded files
     // Function that checks to see if the initial load of data has already
-    fileprivate func readPlist() -> Bool {
-        struct Status: Codable {
-            var dataLoaded: Bool
-        }
-        
-        var settings: Status?
-        let settingstoWrite = Status(dataLoaded:true)
-        let settingsURL = Bundle.main.url(forResource: String.fileNameInitialLoad, withExtension: String.plistExtension)
-        
-        do {
-            
-            let   data = try Data(contentsOf: settingsURL!)
-            let decoder = PropertyListDecoder()
-            //settings = try decoder.decode(settings, from: data)
-            settings = try decoder.decode(Status.self, from: data)
-            if (settings?.dataLoaded == false) {
-                print("AppDelegate.readPlist() false")
-                // set the boolean value to true so the initial files won't be loaded
-                let encoder = PropertyListEncoder()
-                encoder.outputFormat = .xml
-                do {
-                    print("setting to true")
-                    let dataWritten = try encoder.encode(settingstoWrite)
-                    try dataWritten.write(to: settingsURL!)
-                } catch let error {
-                    print("Error writting to plist: " + error.localizedDescription)
-                }
-                return true
-            } else {
-                print("AppDelegate.readPlist() true")
-                return false
-            }
-   
-        } catch let error {
-                print("Error reading/decoding the plist file: " + error.localizedDescription )
-                return true
-        }
-    }
-    
-    
+//    fileprivate func readPlist() -> Bool {
+//        struct Status: Codable {
+//            var dataLoaded: Bool
+//        }
+//
+//        var settings: Status?
+//        let settingstoWrite = Status(dataLoaded:true)
+//        let settingsURL = Bundle.main.url(forResource: String.fileNameInitialLoad, withExtension: String.plistExtension)
+//
+//        do {
+//
+//            let   data = try Data(contentsOf: settingsURL!)
+//            let decoder = PropertyListDecoder()
+//            //settings = try decoder.decode(settings, from: data)
+//            settings = try decoder.decode(Status.self, from: data)
+//            if (settings?.dataLoaded == false) {
+//                print("AppDelegate.readPlist() false")
+//                // set the boolean value to true so the initial files won't be loaded
+//                let encoder = PropertyListEncoder()
+//                encoder.outputFormat = .xml
+//                do {
+//                    print("setting to true")
+//                    let dataWritten = try encoder.encode(settingstoWrite)
+//                    try dataWritten.write(to: settingsURL!)
+//                } catch let error {
+//                    print("Error writting to plist: " + error.localizedDescription)
+//                }
+//                return true
+//            } else {
+//                print("AppDelegate.readPlist() true")
+//                return false
+//            }
+//
+//        } catch let error {
+//                print("Error reading/decoding the plist file: " + error.localizedDescription )
+//                return true
+//        }
+//    }
+//
+//
     // Loads Json data in the bundle, this way a new app comes with data(doesnt have to use network
     // to load), the data exists on the github acccount.
     fileprivate func preloadJson() {
         var flashCards : [[String:Any]]?
-        let paths = [(String.fileNameIntroductionsSwift,String.fileNameIntroductionsSwiftPath, String.fileNameIntroductionsSwiftDescription,String.fileNameIntroductionsSection ), (String.fileNameSwiftKeywords,String.fileNameSwiftKeywordsPath, String.fileNameSwiftKeywordDescription,String.fileNameSwiftKeywordsSection),(String.fileNameSwiftKeywords4,String.fileNameSwiftKeywordsPath4,String.fileNameSwiftKeywordsDescription4,String.fileNameSwiftKeywordsSection4)]
+        let paths = [(String.fileNameIntroductionsSwift,String.fileNameIntroductionsSwiftPath, String.fileNameIntroductionsSwiftDescription,String.fileNameIntroductionsSection ), (String.fileNameSwiftKeywords4,String.fileNameSwiftKeywordsPath4,String.fileNameSwiftKeywordsDescription4,String.fileNameSwiftKeywordsSection4)]
         for path in paths {
             if let jsonFileURL = Bundle.main.url(forResource: path.0, withExtension: String.jsonExtension) {
                 

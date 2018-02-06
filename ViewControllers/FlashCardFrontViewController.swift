@@ -15,15 +15,13 @@ class FlashCardFrontViewController: UIViewController {
     var count: Int!
     var coreDataStack: CoreDataStack!
     var titleOfCard: String?
-    
     var segueFlashCardBackViewController = "SegueBackFlashCard"
     
+    // MARK: IBActions and IBOutlets
     @IBOutlet weak var frontFlashCard: UILabel!
     @IBOutlet weak var pageLabel: UILabel!
     @IBOutlet weak var topHolderLabel: UILabel!
     @IBOutlet weak var bottomHolderLabel: UILabel!
-   
-    
     @IBAction func swipeShowtoFalse(_ sender: UISwipeGestureRecognizer) {
         card.show = false
         coreDataStack.saveContext()
@@ -31,10 +29,9 @@ class FlashCardFrontViewController: UIViewController {
         
     }
     @IBAction func tapToFlashCardBackViewController(_ sender: UITapGestureRecognizer) {
-        print("tap recognized")
+        //print("tap recognized")
         performSegue(withIdentifier: segueFlashCardBackViewController, sender: self )
     }
-   
     @IBAction func swipeShowtoTrue(_ sender: UISwipeGestureRecognizer) {
         card.show = true
         coreDataStack.saveContext()
@@ -42,7 +39,8 @@ class FlashCardFrontViewController: UIViewController {
         
     }
     @IBOutlet weak var showCard: UILabel!
-    
+
+    // MARK: FlashCardFrontViewController functions.
     override func viewDidLoad() {
         super.viewDidLoad()
         topHolderLabel.text = ""

@@ -29,12 +29,12 @@
 		F4A90DF02010F0EA00B3D4E8 /* InitialDataLoaded.plist in Resources */ = {isa = PBXBuildFile; fileRef = F4A90DEF2010F0EA00B3D4E8 /* InitialDataLoaded.plist */; };
 		F4ABA9B11F292257006792A1 /* Card+HelperClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4ABA9B01F292257006792A1 /* Card+HelperClass.swift */; };
 		F4ABA9B31F29637D006792A1 /* ExportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4ABA9B21F29637D006792A1 /* ExportViewController.swift */; };
-		F4ABA9B51F2B6E3A006792A1 /* introductionSwiftCard.json in Resources */ = {isa = PBXBuildFile; fileRef = F4ABA9B41F2B6E3A006792A1 /* introductionSwiftCard.json */; };
 		F4ABA9B71F2B6E42006792A1 /* Swift_KeywordsV3_0_1.json in Resources */ = {isa = PBXBuildFile; fileRef = F4ABA9B61F2B6E42006792A1 /* Swift_KeywordsV3_0_1.json */; };
 		F4B4DC2E2017645400F2C35F /* FileManger+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B4DC2D2017645400F2C35F /* FileManger+Helper.swift */; };
 		F4BD772C1E9FDA9D00C7D867 /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BD772B1E9FDA9D00C7D867 /* CardViewController.swift */; };
 		F4D94E2E201E3DF8004F5339 /* MyDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D94E2D201E3DF8004F5339 /* MyDocument.swift */; };
 		F4EC8B921E81899900D158CD /* CardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EC8B911E81899900D158CD /* CardTableViewCell.swift */; };
+		F4F3768B202A67B000E09FFD /* introductionSwiftCard.json in Resources */ = {isa = PBXBuildFile; fileRef = F4F3768A202A67AE00E09FFD /* introductionSwiftCard.json */; };
 		F4FA905D1F30DF540069147C /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FA905C1F30DF540069147C /* HelpViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -64,12 +64,12 @@
 		F4A90DEF2010F0EA00B3D4E8 /* InitialDataLoaded.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = InitialDataLoaded.plist; sourceTree = "<group>"; };
 		F4ABA9B01F292257006792A1 /* Card+HelperClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Card+HelperClass.swift"; sourceTree = "<group>"; };
 		F4ABA9B21F29637D006792A1 /* ExportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportViewController.swift; sourceTree = "<group>"; };
-		F4ABA9B41F2B6E3A006792A1 /* introductionSwiftCard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = introductionSwiftCard.json; path = FlashCardSwift/introductionSwiftCard.json; sourceTree = "<group>"; };
 		F4ABA9B61F2B6E42006792A1 /* Swift_KeywordsV3_0_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Swift_KeywordsV3_0_1.json; path = FlashCardSwift/Swift_KeywordsV3_0_1.json; sourceTree = "<group>"; };
 		F4B4DC2D2017645400F2C35F /* FileManger+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManger+Helper.swift"; sourceTree = "<group>"; };
 		F4BD772B1E9FDA9D00C7D867 /* CardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
 		F4D94E2D201E3DF8004F5339 /* MyDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDocument.swift; sourceTree = "<group>"; };
 		F4EC8B911E81899900D158CD /* CardTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardTableViewCell.swift; sourceTree = "<group>"; };
+		F4F3768A202A67AE00E09FFD /* introductionSwiftCard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = introductionSwiftCard.json; sourceTree = "<group>"; };
 		F4FA905C1F30DF540069147C /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -124,7 +124,7 @@
 				F4A2AD14202270C000AB3990 /* SwiftKeywordsV4.json */,
 				F4A90DEF2010F0EA00B3D4E8 /* InitialDataLoaded.plist */,
 				F4ABA9B61F2B6E42006792A1 /* Swift_KeywordsV3_0_1.json */,
-				F4ABA9B41F2B6E3A006792A1 /* introductionSwiftCard.json */,
+				F4F3768A202A67AE00E09FFD /* introductionSwiftCard.json */,
 			);
 			name = JSONData;
 			sourceTree = "<group>";
@@ -249,9 +249,9 @@
 				F4A90DF02010F0EA00B3D4E8 /* InitialDataLoaded.plist in Resources */,
 				F40D2CB51E60E3A20085191B /* LaunchScreen.storyboard in Resources */,
 				F4A2AD15202270C100AB3990 /* SwiftKeywordsV4.json in Resources */,
+				F4F3768B202A67B000E09FFD /* introductionSwiftCard.json in Resources */,
 				F40D2CB21E60E3A20085191B /* Assets.xcassets in Resources */,
 				F40D2CB01E60E3A20085191B /* Main.storyboard in Resources */,
-				F4ABA9B51F2B6E3A006792A1 /* introductionSwiftCard.json in Resources */,
 				F4ABA9B71F2B6E42006792A1 /* Swift_KeywordsV3_0_1.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

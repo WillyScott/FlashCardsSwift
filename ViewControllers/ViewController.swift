@@ -184,7 +184,7 @@ extension ViewController: UITableViewDataSource {
         cell.clipsToBounds = true
         return cell
     }
-    
+    //TODO: Evaluate and remove if not needed
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         // TODO: delete these commits
 //        if editingStyle == .delete {
@@ -209,7 +209,8 @@ extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
-    // Different way to allow table editing.
+    //TODO: Evaluate these functions to edit by swiping
+// Different way to allow table editing.
 //    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 //        guard let setSwiped = fetchResultsSetsController?.object(at: indexPath) else {return nil}
 //        let deleteAction = UIContextualAction(style: .destructive, title: "Delete"){
@@ -287,7 +288,7 @@ extension ViewController: NSFetchedResultsControllerDelegate {
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         //causes error 2 lines
-        print("controller")
+       // print("controller")
         tableView.endUpdates()
         updateView()
         tableView.reloadData()

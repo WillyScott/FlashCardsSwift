@@ -1,11 +1,12 @@
-{"cards":[
+{"cards":
+ [
     {
-        "front": "Welcome to Swiftcard. The first screen to show on startup is a flash screen followed by a list of any sets. Tap to see the back of this card.After return to the cards swipe right to go forward.",
-        "back": "If any sets exist their Name, description and count of flashcards that exist in the set will be displayed."
+        "front": "Welcome, to Swiftcard. The first screen to show on startup is a flash screen followed by a list of any sets. Tap to see the back of this card.After return to the cards swipe right to go forward.",
+        "back": "If any sets exist their Name, description, section and counts of flashcards that are marked as known and a total count will be displayed."
     },
     {
         "front": "A flashcard set is created by pressing the \"+\" in the main screen navigation bar.",
-        "back": "\"Set Name:\" and \"Set Description.\" are required fields. Set name must be a unique.  The \"Import URL\" is set to the introduction cards on GitHub.com."
+        "back": "No fields are required but if the set section is left blank the set section will be set to \"NoSet\".  The set will have sorted and separated into section. The \"Import URL\" is set to the introduction cards on GitHub.com."
     },
     {
         "front": "In the new flashcard set screen the save button will persist the new set.",
@@ -13,7 +14,7 @@
     },
     {
         "front": "In the new flashcard set screen \"import URL:\" is the location on the internet of the file to be imported.",
-        "back": "Currently only \"https\" and file type of \".json\" is supported.  The json file to be imported must be formated correctly. A example json file correctly formatted is      { \"cards\": [\n    {\n        \"front\": \"Gives a placeholder name to a type that is used as part of a protocol\",\n        \"back\": \"associatedtype(typealias is sometimes used to declare the concrete type, but Swifts type inference doesn't require it)\"\n    },\n    {\n        \"front\": \"General-purose, flexible construct that becomes the building blocks of a program.\",\n        \"back\": \"Class\"\n    }\n]\n}"
+        "back": "Currently only \"https\" and file type of \".json\" is supported.  The json file to be imported must be formated correctly. A example json file correctly formatted is \n   { \"cards\": [\n    {\n        \"front\": \"Gives a placeholder name to a type that is used as part of a protocol\",\n        \"back\": \"associatedtype(typealias is sometimes used to declare the concrete type, but Swifts type inference doesn't require it)\"\n    },\n    {\n        \"front\": \"General-purose, flexible construct that becomes the building blocks of a program.\",\n        \"back\": \"Class\"\n    }\n]\n}"
     },
     {
         "front": "A flashcard set can be edited and deleted.",
@@ -33,7 +34,7 @@
     },
     {
         "front": "There are 4 buttons on the bottom of the tab bar.",
-        "back": "Start - starts the flash cards session, ReSet - sets the show field back to True, Import- imports cards into the set if the Import field is in the Set, Exportcsv - exports the cards in .cvs format."
+        "back": "Start - starts the flash cards session, ReSet sets the show field back to True, Import imports cards into the set if the Import field is in the Set. Export exports the cards in JSON or CSV format.  The files can be view with the IOS File Document browser."
     },
     {
         "front": "Select \"Start\" to start the flashcard session.  Tap the screen to see the back of the card.  After reviewing the back of the card swipe left to go to the next card.",
